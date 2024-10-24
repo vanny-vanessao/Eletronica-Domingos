@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficina de Aparelhos Eletrônicos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 50px 0;
+}
+
+nav {
+    background-color: #343a40;
+    padding: 15px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+section {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+section h2 {
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #343a40;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+}
+
+input, textarea {
+    padding: 10px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Oficina de Aparelhos Eletrônicos</h1>
+        <p>Reparos, Manutenção e Consultoria Técnica</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#servicos">Serviços</a></li>
+            <li><a href="#sobre">Sobre Nós</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+    
+    <section id="servicos">
+        <h2>Serviços</h2>
+        <ul>
+            <li>Reparo de Smartphones</li>
+            <li>Manutenção de Laptops</li>
+            <li>Instalação de Equipamentos</li>
+            <li>Consultoria Técnica</li>
+        </ul>
+    </section>
+    
+    <section id="sobre">
+        <h2>Sobre Nós</h2>
+        <p>Com anos de experiência, nossa equipe é especializada em consertar e manter diversos aparelhos eletrônicos. A satisfação do cliente é nossa prioridade.</p>
+    </section>
+    
+    <section id="galeria">
+        <h2>Galeria</h2>
+        <p>Veja algumas fotos dos nossos serviços e do nosso espaço.</p>
+        <img src="imagem1.jpg" alt="Reparo de smartphone" />
+        <img src="imagem2.jpg" alt="Manutenção de laptop" />
+    </section>
+    
+    <section id="depoimentos">
+        <h2>Depoimentos</h2>
+        <blockquote>
+            <p>"Serviço excelente e rápido! Meu celular ficou como novo!" - Maria S.</p>
+        </blockquote>
+        <blockquote>
+            <p>"Profissionais muito atenciosos. Recomendo!" - João P.</p>
+        </blockquote>
+    </section>
+    
+    <section id="contato">
+        <h2>Contato</h2>
+        <form>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="mensagem">Mensagem:</label>
+            <textarea id="mensagem" name="mensagem" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+    
+    <footer>
+        <p>© 2024 Oficina de Aparelhos Eletrônicos | Todos os direitos reservados</p>
+    </footer>
+</body>
+</html>
