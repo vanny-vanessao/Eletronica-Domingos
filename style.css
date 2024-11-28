@@ -1,32 +1,75 @@
 @charset "UTF-8";
-
-header {
-    background-color: red;
-    padding: 10px;
-    margin: -8px;
-    text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@font-face {
+	font-family: 'Bebas Neue';
+	src: url("BebasNeue-Regular.ttf");
 }
-nav.menu li {
-	display: inline-block;
-    margin-left: 100px;
-    font-size: 25px;
+body{
+    background-color: #040019;
     color: white;
 }
-nav.menu button {
-    float: right;
-    margin: 5px;
+header{
+    background-color: #03062b;
+    color: white;
 }
-nav.menu button.signup {
-    margin-right: 10px;
+footer{
+    background-color: #1c2267;
+    color: white;
 }
-article {
-    font-size: 16pt;
-    margin: 10px;
-}
-footer {
-    background-color: yellow;
+div#principal {
+    display: flex; /* Ativa o flexbox */
+    justify-content: flex-end; /* Move conteúdo para a direita */
+    align-items: flex-start; /* Alinha no topo */
+    width: 1000px;
+    margin: 0px auto;
+    background: #03062b;
     padding: 20px;
-    margin-left: -8px;
-    margin-right: -8px;
-    margin-bottom: -8px;
+}
+div.texto {
+    width: 50%;
+}
+img#fachada{
+    max-width: 40%;
+    margin: auto;
+}
+div.logo {
+    display: flex; /* Ativa flexbox */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 20px; /* Espaço entre os itens */
+}
+div.logo img{
+    width: 5%;
+    display: inline-block;
+    margin: 40px;
+}
+h3#titulo{
+    font-size: 60pt; /* Tamanho do título */
+    letter-spacing: 5px;
+    margin: 15px; /* Remove margens padrão */
+    text-align: right; /* Alinha o texto à direita */
+    flex-grow: 1; /* Empurra o título para a extrema direita */
+    font-family: 'Bebas Neue';
+}
+div#botoes{
+    background-color: #00308d;
+    text-align: right;
+}
+button{
+    background-color: #38b6ff; 
+    color: #fff; 
+    border: none;
+    border-radius: 20px; 
+    padding: 10px; 
+    width: 7%;
+    font-size: 20px; 
+    font-family: 'Poppins', sans-serif;
+    margin: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, transform 0.3s; 
+}
+
+button:hover {
+    background-color: #0c92e0; 
+    transform: scale(1.05); 
 }

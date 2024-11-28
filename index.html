@@ -1,153 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oficina de Aparelhos Eletrônicos</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-header {
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    padding: 50px 0;
-}
-
-nav {
-    background-color: #343a40;
-    padding: 15px;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-}
-
-nav li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-section {
-    padding: 40px 20px;
-    max-width: 800px;
-    margin: auto;
-}
-
-section h2 {
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #343a40;
-    color: white;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
-}
-
-input, textarea {
-    padding: 10px;
-    margin-top: 5px;
-}
-
-button {
-    margin-top: 15px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-    </style>
+    <script src="myScript.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Eletrônica Domingos</title>
 </head>
 <body>
     <header>
-        <h1>Oficina de Aparelhos Eletrônicos</h1>
-        <p>Reparos, Manutenção e Consultoria Técnica</p>
+        <div class="logo">
+            <img id="wifi" src="pngegg.png" alt="wifi">
+            <img id="usb" src="usb-xxl.png" alt="usb">
+            <img id="mouse" src="pngfind.com-mouse-icon-png-2986890.png" alt="mouse">
+            <h3 id="titulo">ELETRÔNICA DOMINGOS</h3>
+        </div>
+        <div id="botoes">
+            <button>Cadastrar</button>
+            <button>Entrar</button>
+        </div>
     </header>
-    
-    <nav>
-        <ul>
-            <li><a href="#servicos">Serviços</a></li>
-            <li><a href="#sobre">Sobre Nós</a></li>
-            <li><a href="#galeria">Galeria</a></li>
-            <li><a href="#depoimentos">Depoimentos</a></li>
-            <li><a href="#contato">Contato</a></li>
-        </ul>
-    </nav>
-    
-    <section id="servicos">
-        <h2>Serviços</h2>
-        <ul>
-            <li>Reparo de Smartphones</li>
-            <li>Manutenção de Laptops</li>
-            <li>Instalação de Equipamentos</li>
-            <li>Consultoria Técnica</li>
-        </ul>
-    </section>
-    
-    <section id="sobre">
-        <h2>Sobre Nós</h2>
-        <p>Com anos de experiência, nossa equipe é especializada em consertar e manter diversos aparelhos eletrônicos. A satisfação do cliente é nossa prioridade.</p>
-    </section>
-    
-    <section id="galeria">
-        <h2>Galeria</h2>
-        <p>Veja algumas fotos dos nossos serviços e do nosso espaço.</p>
-        <img src="imagem1.jpg" alt="Reparo de smartphone" />
-        <img src="imagem2.jpg" alt="Manutenção de laptop" />
-    </section>
-    
-    <section id="depoimentos">
-        <h2>Depoimentos</h2>
-        <blockquote>
-            <p>"Serviço excelente e rápido! Meu celular ficou como novo!" - Maria S.</p>
-        </blockquote>
-        <blockquote>
-            <p>"Profissionais muito atenciosos. Recomendo!" - João P.</p>
-        </blockquote>
-    </section>
-    
-    <section id="contato">
-        <h2>Contato</h2>
-        <form>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
-            <label for="email">E-mail:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="mensagem">Mensagem:</label>
-            <textarea id="mensagem" name="mensagem" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-    
+    <div id="principal">
+        <img id="fachada" src="https://s3.us-east-1.amazonaws.com/appuniversal/priest-1638232074-4289.jpg" alt="fachada da Eletrônica Domingos">
+        <div class="texto">Lorem ipsum odor amet, consectetuer adipiscing elit. Suscipit tristique nisl; tellus tempor eros per. Auctor velit integer ridiculus nibh conubia aptent pellentesque. Erat vitae venenatis aliquet nisl taciti. Lectus nullam finibus adipiscing erat; eget fringilla auctor bibendum. Praesent ultricies taciti nam rutrum facilisi duis.
+        Habitant litora leo, odio sem auctor penatibus. Placerat porttitor accumsan diam euismod netus sit facilisis erat. Vivamus aliquet inceptos porttitor pharetra nunc pharetra tristique. Imperdiet ridiculus tincidunt maximus pharetra vivamus nullam. Urna feugiat semper dictum tristique vestibulum facilisi ligula. Sodales torquent eget ultrices sollicitudin consectetur viverra nostra urna.
+        Vel mus vel pellentesque urna consectetur fringilla vel volutpat. Cras rhoncus senectus ante, fringilla habitant quisque. Vel elementum viverra tempus, tincidunt curabitur imperdiet fusce velit cras. Ex quisque ut interdum etiam iaculis. Dapibus est praesent a etiam habitant curae adipiscing. Hendrerit commodo parturient aliquam pellentesque massa erat dolor imperdiet aliquam. Convallis ut nec a feugiat dui. Lacus ornare pretium dignissim egestas imperdiet senectus vehicula facilisi. Ullamcorper dignissim congue ac suspendisse nullam maximus ante.
+        Hac metus quis tincidunt nisi lectus sed quis. Lectus pretium pretium nibh arcu pellentesque praesent consectetur natoque. Massa fames litora nunc mattis adipiscing class sem primis accumsan. Nisl amet pulvinar inceptos laoreet aptent turpis. Scelerisque enim porttitor in posuere tristique ligula finibus neque. Auctor neque himenaeos purus mollis ornare imperdiet aliquam eleifend purus? Amet dolor congue urna laoreet pulvinar massa morbi sagittis? Adipiscing massa egestas accumsan fames netus facilisis condimentum. Eu molestie sollicitudin tortor varius finibus.
+        Aliquet mus imperdiet justo quam ornare duis finibus. Fames vitae mi etiam lobortis aptent class cras. Vulputate vitae torquent accumsan proin porttitor fermentum sociosqu penatibus. Vel torquent nostra fusce cubilia aliquam. Sociosqu molestie morbi arcu sapien magnis pulvinar. Litora urna facilisi curae per scelerisque; condimentum tellus pharetra lectus. Efficitur accumsan vel diam purus duis eu eget.
+        </div>
+    </div>
     <footer>
-        <p>© 2024 Oficina de Aparelhos Eletrônicos | Todos os direitos reservados</p>
+        <div>lorem ipslum</div>
     </footer>
 </body>
 </html>
