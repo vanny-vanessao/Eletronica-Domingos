@@ -1,3 +1,4 @@
+create database eletronicaDomingos;
 use eletronicaDomingos;
 create table Endereco (
 id integer primary key auto_increment not null,
@@ -22,17 +23,7 @@ obs varchar (100),
 id_endereco integer not null,
 foreign key (id_endereco) references Endereco (id)
 );
-create table Registro (
-id integer primary key auto_increment not null,
-data_registro date not null,
-data_estimada date not null,
-data_entrega date not null,
-orcamento real not null,
-valor real not null,
-obs varchar(100),
-id_cliente integer not null,
-foreign key (id_cliente) references Cliente (id)
-);
+
 create table Aparelho (
 id integer primary key auto_increment not null,
 nome varchar (50) not null,
@@ -45,9 +36,21 @@ data_garantia date,
 fotos blob,
 tipo varchar (30) not null,
 acessorios varchar (50),
-obs varchar (100),
-id_registro integer not null,
-foreign key (id_registro) references Registro (id)
+obs varchar (100)
+);
+
+create table Registro (
+id integer primary key auto_increment not null,
+data_registro date not null,
+data_estimada date not null,
+data_entrega date not null,
+orcamento real not null,
+valor real not null,
+obs varchar(100),
+id_cliente integer not null,
+id_aparelho integer not null,
+foreign key (id_cliente) references Cliente (id),
+foreign key (id_aparelho) references Aparelho (id)
 );
 
 
