@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nome Fantasia - Controle OS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- ESSE CÓDIGO FOI GERADO COM INTELIGÊNCIA ARTIFICIAL EM MISTURA DO QUE EU JÁ TAVA EDITANDO.
+    ESSE CÓDIGO NÃO TÁ LIGADO EM NADA NO SISTEMA, SÓ TO USANDO ELE PRA ESTUDO DO "MODAL DE DETALHES", LINHA 107 PRA BAIXO :)-->
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: #004aad;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 50px;
+            font-weight: bold;
+            color: #004aad;
+            margin-bottom: 30px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 10px;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 700px;
+            margin: 20px auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            text-align: center;
+            align-items: center;
+        }
+
+        .dashboard-button {
+            display: block;
+            padding: 10px;
+            margin: 10px;
+            font-size: 20px;
+            border-radius: 15px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            transition: transform 0.2s, background-color 0.2s;
+            align-items: center;
+            text-align: center;
+        }
+
+        .dashboard-button:hover {
+            background-color: #0069d9;
+            transform: scale(1.02);
+        }
+
+        .pending-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: 2px solid #004aad;
+            border-radius: 10px;
+            margin: 10px 0;
+            padding: 15px;
+        }
+
+        .pending-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .status-badge {
+            font-size: 0.9em;
+            background-color: #004aad !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-content">
+        <div class="logo">Nome Fantasia</div>
+        
+        <!-- Botões Principais -->
+        <div class="container-fluid">
+            <div class="row gap-3 justify-content-center mb-5">
+                <div class="col-md-8">
+                    <button class="dashboard-button" onclick="openNewOrderModal()">
+                        + Novo Conserto
+                    </button>
+                    <button class="dashboard-button" onclick="showPending()">
+                        Consertos Pendentes
+                    </button>
+                    <button class="dashboard-button" onclick="showCompleted()">
+                        Consertos Concluídos
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pendências mais antigas -->
+            <h3 class="mb-4" style="color: #004aad;">Pendências Prioritárias:</h3>
+            <div class="row justify-content-center" id="pending-list">
+                <div class="col-md-8">
+                    <!-- Cards serão inseridos aqui via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes -->
+    <div class="modal fade" id="detailsModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #004aad; color: white;">
+                    <h5 class="modal-title">Detalhes da Ordem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Cliente:</strong> <span id="client-name"></span></p>
+                    <p><strong>Equipamento:</strong> <span id="equipment"></span></p>
+                    <p><strong>Entrada:</strong> <span id="entry-date"></span></p>
+                    <p><strong>Problema relatado:</strong> <span id="issue"></span></p>
+                    <p><strong>Status:</strong> <span id="status"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Dados de exemplo
+        const pendingOrders = [
+            {
+                id: 1,
+                client: "João Silva",
+                equipment: "Notebook Dell",
+                entryDate: "01/03/2024",
+                issue: "Não liga",
+                status: "Aguardando peça"
+            },
+            {
+                id: 2,
+                client: "Maria Souza",
+                equipment: "Smartphone Samsung",
+                entryDate: "28/02/2024",
+                issue: "Tela quebrada",
+                status: "Aguardando aprovação"
+            },
+            {
+                id: 3,
+                client: "Carlos Oliveira",
+                equipment: "TV LED 55",
+                entryDate: "25/02/2024",
+                issue: "Sem imagem",
+                status: "Diagnóstico pendente"
+            }
+        ];
+
+        // Função para renderizar os cards pendentes
+        function renderPendingCards() {
+            const container = document.getElementById('pending-list').querySelector('.col-md-8');
+            container.innerHTML = '';
+            
+            pendingOrders.forEach(order => {
+                const card = document.createElement('div');
+                card.className = 'pending-card';
+                card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>${order.client}</h5>
+                            <p class="mb-1">${order.equipment}</p>
+                            <small>Entrada: ${order.entryDate}</small>
+                        </div>
+                        <span class="badge status-badge">${order.status}</span>
+                    </div>
+                `;
+                card.addEventListener('click', () => showDetails(order));
+                container.appendChild(card);
+            });
+        }
+
+        // Função para mostrar detalhes no modal
+        function showDetails(order) {
+            document.getElementById('client-name').textContent = order.client;
+            document.getElementById('equipment').textContent = order.equipment;
+            document.getElementById('entry-date').textContent = order.entryDate;
+            document.getElementById('issue').textContent = order.issue;
+            document.getElementById('status').textContent = order.status;
+            
+            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
+            modal.show();
+        }
+
+        // Funções básicas para os botões
+        function openNewOrderModal() {
+            // Implementar lógica para novo conserto
+            window.location.href = 'novo-conserto1.html';
+        }
+
+        function showPending() {
+            // Implementar lista completa de pendentes
+            alert('Mostrar lista completa de pendentes');
+        }
+
+        function showCompleted() {
+            // Implementar lista de concluídos
+            alert('Mostrar lista de concluídos');
+        }
+
+        // Inicializa os cards ao carregar a página
+        window.onload = renderPendingCards;
+    </script>
+</body>
+</html>
