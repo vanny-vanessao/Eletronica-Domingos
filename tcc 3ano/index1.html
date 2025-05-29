@@ -5,208 +5,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nome Fantasia - Controle OS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- ESSE CÓDIGO FOI GERADO COM INTELIGÊNCIA ARTIFICIAL EM MISTURA DO QUE EU JÁ TAVA EDITANDO.
-    ESSE CÓDIGO NÃO TÁ LIGADO EM NADA NO SISTEMA, SÓ TO USANDO ELE PRA ESTUDO DO "MODAL DE DETALHES", LINHA 107 PRA BAIXO :)-->
-
     <style>
         body {
             margin: 0;
             min-height: 100vh;
+            background-color: lightskyblue;
+        }
+
+        .principal {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .cabecalho {
             background-color: #004aad;
+            padding: 20px;
             text-align: center;
+            color: white;
         }
 
         .logo {
-            font-size: 50px;
+            font-size: 36px;
             font-weight: bold;
-            color: #004aad;
-            margin-bottom: 30px;
+            margin: 0;
+            letter-spacing: 1px;
         }
 
-        .main-content {
+        .container-fluid {
+            display: flex;
             flex: 1;
-            padding: 10px;
-            background-color: white;
-            min-height: 90vh;
-            max-width: 700px;
-            margin: 20px auto;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            text-align: center;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .parte-botoes {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
             align-items: center;
         }
 
-        .dashboard-button {
-            display: block;
-            padding: 10px;
-            margin: 10px;
-            font-size: 20px;
-            border-radius: 15px;
+        .parte-pendentes {
+            flex: 2;
+            padding: 30px 20px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .botao-dashboard {
+            width: 100%;
+            max-width: 250px;
+            padding: 20px 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
             background-color: #004aad;
             color: white;
             border: none;
-            transition: transform 0.2s, background-color 0.2s;
-            align-items: center;
-            text-align: center;
-        }
-
-        .dashboard-button:hover {
-            background-color: #0069d9;
-            transform: scale(1.02);
-        }
-
-        .pending-card {
-            cursor: pointer;
-            transition: transform 0.2s;
-            border: 2px solid #004aad;
-            border-radius: 10px;
-            margin: 10px 0;
-            padding: 15px;
-        }
-
-        .pending-card:hover {
-            transform: translateY(-5px);
+            transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .status-badge {
+        .botao-dashboard i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .botao-dashboard:hover {
+            background-color: #0069d9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .botao-dashboard:active {
+            transform: translateY(1px);
+        }
+
+        h2 {
+            color: #004aad;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #004aad;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .quadro-pendente {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #d0d0d0;
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 20px;
+            background: white;
+            position: relative;
+        }
+
+        .quadro-pendente:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: #004aad;
+        }
+
+        .quadro-pendente:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #004aad;
+        }
+
+        .quadro-pendente h5 {
+            color: #004aad;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .detalhes-quadro {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
             font-size: 0.9em;
-            background-color: #004aad !important;
+            color: #555;
+        }
+
+        .detalhes-quadro span {
+            display: flex;
+            align-items: center;
+        }
+
+        .detalhes-quadro i {
+            margin-right: 5px;
+            color: #004aad;
+        }
+
+        .nenhum-pendente {
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+            .parte-botoes {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="main-content">
-        <div class="logo">Nome Fantasia</div>
-        
-        <!-- Botões Principais -->
-        <div class="container-fluid">
-            <div class="row gap-3 justify-content-center mb-5">
-                <div class="col-md-8">
-                    <button class="dashboard-button" onclick="openNewOrderModal()">
-                        + Novo Conserto
-                    </button>
-                    <button class="dashboard-button" onclick="showPending()">
-                        Consertos Pendentes
-                    </button>
-                    <button class="dashboard-button" onclick="showCompleted()">
-                        Consertos Concluídos
-                    </button>
-                </div>
-            </div>
-
-            <!-- Pendências mais antigas -->
-            <h3 class="mb-4" style="color: #004aad;">Pendências Prioritárias:</h3>
-            <div class="row justify-content-center" id="pending-list">
-                <div class="col-md-8">
-                    <!-- Cards serão inseridos aqui via JavaScript -->
-                </div>
-            </div>
+    <div class="principal">
+        <div class="cabecalho">
+            <h1 class="logo">Nome Fantasia</h1>
         </div>
-    </div>
 
-    <!-- Modal de Detalhes -->
-    <div class="modal fade" id="detailsModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color: #004aad; color: white;">
-                    <h5 class="modal-title">Detalhes da Ordem</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Cliente:</strong> <span id="client-name"></span></p>
-                    <p><strong>Equipamento:</strong> <span id="equipment"></span></p>
-                    <p><strong>Entrada:</strong> <span id="entry-date"></span></p>
-                    <p><strong>Problema relatado:</strong> <span id="issue"></span></p>
-                    <p><strong>Status:</strong> <span id="status"></span></p>
-                </div>
+        <div class="container-fluid">
+            <div class="parte-botoes">
+                <button class="botao-dashboard" onclick="openNewOrderModal()">
+                    <i class="fas fa-plus-circle"></i> Novo Conserto
+                </button>
+                <button class="botao-dashboard" onclick="showPending()">
+                    <i class="fas fa-clock"></i> Consertos Pendentes
+                </button>
+                <button class="botao-dashboard" onclick="showCompleted()">
+                    <i class="fas fa-check-circle"></i> Consertos Concluídos
+                </button>
+            </div>
+
+            <div class="parte-pendentes">
+                <h2><i class="fas fa-exclamation-triangle"></i> Principais Pendentes</h2>
+                <div id="lista"></div>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Dados de exemplo
-        const pendingOrders = [
-            {
-                id: 1,
-                client: "João Silva",
-                equipment: "Notebook Dell",
-                entryDate: "01/03/2024",
-                issue: "Não liga",
-                status: "Aguardando peça"
-            },
-            {
-                id: 2,
-                client: "Maria Souza",
-                equipment: "Smartphone Samsung",
-                entryDate: "28/02/2024",
-                issue: "Tela quebrada",
-                status: "Aguardando aprovação"
-            },
-            {
-                id: 3,
-                client: "Carlos Oliveira",
-                equipment: "TV LED 55",
-                entryDate: "25/02/2024",
-                issue: "Sem imagem",
-                status: "Diagnóstico pendente"
-            }
+        const ordensPendentes = [
+            { id: 1, cliente: "João Silva", equipamento: "Notebook Dell Inspiron", data_registro: "01/03/2024", problema: "Não liga após queda"},
+            { id: 2, cliente: "Maria Souza", equipamento: "Smartphone Samsung Galaxy S21", data_registro: "28/02/2024", problema: "Tela quebrada e não carrega"},
+            { id: 3, cliente: "Carlos Oliveira", equipamento: "TV LED 55' LG", data_registro: "25/02/2024", problema: "Sem imagem, apenas som"},
         ];
 
-        // Função para renderizar os cards pendentes
-        function renderPendingCards() {
-            const container = document.getElementById('pending-list').querySelector('.col-md-8');
+        function renderizarCartoesPendentes() {
+            const container = document.getElementById('lista');
+            if (ordensPendentes.length === 0) {
+                container.innerHTML = '<div class="nenhum-pendente"><p>Nenhuma pendência prioritária no momento.</p></div>';
+                return;
+            } 
             container.innerHTML = '';
-            
-            pendingOrders.forEach(order => {
-                const card = document.createElement('div');
-                card.className = 'pending-card';
-                card.innerHTML = `
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5>${order.client}</h5>
-                            <p class="mb-1">${order.equipment}</p>
-                            <small>Entrada: ${order.entryDate}</small>
+            ordensPendentes
+                .sort((a, b) => new Date(a.data_registro.split('/').reverse().join('/')) - new Date(b.data_registro.split('/').reverse().join('/')))
+               
+                /*serve para ordenar as ordens de serviço pela data de entrada, da mais antiga para a mais recente.
+                a.data_registro é uma string de data no formato "dd/mm/yyyy" (ex: "28/02/2024") (já deixei no mesmo nome do campo do BD)
+                .split('/') transforma essa string em um array: ["28", "02", "2024"]
+                .reverse() vira esse array de trás pra frente: ["2024", "02", "28"]
+                .join('/') transforma de volta em uma string: "2024/02/28"
+                new Date(...) cria um objeto Date que o JavaScript entende corretamente (no formato "yyyy/mm/dd")
+                A subtração entre os Date de a e b faz com que o .sort() coloque os itens na ordem correta (menores datas vêm primeiro)*/
+
+                .forEach(ordem => {
+                    const quadro = document.createElement('div');
+                    quadro.className = 'quadro-pendente';
+                    quadro.innerHTML = `
+                        <h5>${ordem.cliente}</h5>
+                        <p><strong>Equipamento:</strong> ${ordem.equipamento}</p>
+                        <p><strong>Problema:</strong> ${ordem.problema}</p>
+                        <div class="detalhes-quadro">
+                            <span><i class="fas fa-calendar-alt"></i> Entrada: ${ordem.data_registro}</span>
                         </div>
-                        <span class="badge status-badge">${order.status}</span>
-                    </div>
-                `;
-                card.addEventListener('click', () => showDetails(order));
-                container.appendChild(card);
-            });
+                    `;
+                    quadro.addEventListener('click', () => mostrarDetalhesOrdem(ordem.id));
+                    container.appendChild(quadro);
+                });
         }
 
-        // Função para mostrar detalhes no modal
-        function showDetails(order) {
-            document.getElementById('client-name').textContent = order.client;
-            document.getElementById('equipment').textContent = order.equipment;
-            document.getElementById('entry-date').textContent = order.entryDate;
-            document.getElementById('issue').textContent = order.issue;
-            document.getElementById('status').textContent = order.status;
-            
-            const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
-            modal.show();
+        function mostrarDetalhesOrdem(id) {
+            alert(`Redirecionando para detalhes da ordem ${id}`);
         }
 
-        // Funções básicas para os botões
         function openNewOrderModal() {
-            // Implementar lógica para novo conserto
-            window.location.href = 'novo-conserto1.html';
+            alert('Abrindo formulário para novo conserto');
         }
 
         function showPending() {
-            // Implementar lista completa de pendentes
-            alert('Mostrar lista completa de pendentes');
+            alert('Mostrando lista completa de pendentes');
         }
 
         function showCompleted() {
-            // Implementar lista de concluídos
-            alert('Mostrar lista de concluídos');
+            alert('Mostrando lista de concluídos');
         }
 
-        // Inicializa os cards ao carregar a página
-        window.onload = renderPendingCards;
+        window.onload = renderizarCartoesPendentes;
     </script>
 </body>
 </html>
