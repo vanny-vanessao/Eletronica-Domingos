@@ -1,13 +1,8 @@
-/*const express = require('express');
-const produtoController = require('../controllers/produtoController');
+const express = require('express');
 const router = express.Router();
 
-router.get('/', produtoController.getAllProdutos);
-router.get('/new', produtoController.renderCreateForm);
-router.post('/', produtoController.createProduto);
-router.get('/:id', produtoController.getProdutoById);
-router.get('/:id/edit', produtoController.renderEditForm);
-router.put('/:id', produtoController.updateProduto);
-router.delete('/:id', produtoController.deleteProduto);
+router.get('/concluidos', (req, res) => {
+  res.render('concluidos/index'); 
+});
 
-module.exports = router;*/
+module.exports = router;

@@ -25,7 +25,10 @@ router.post('/novo-conserto2', registroController.criarOrdem2);
 
 // Exibe o formulário da terceira etapa
 router.get('/novo-registro', (req, res) => {
-  res.render('pendentes/novo-registro', { id_cliente: req.session.id_cliente });
+  res.render('pendentes/novo-registro', {
+    id_cliente: req.session.id_cliente,
+    id_aparelho: req.session.id_aparelho
+  });
 });
 
 // Processa o POST da terceira etapa (se necessário)

@@ -30,11 +30,21 @@ exports.criarOrdem1 = async (req, res) => {
 exports.criarOrdem2 = async (req, res) => {
   try {
     const {
-      nome, marca, cor, modelo, problema, garantia, tipo, acessorios, obs, fotos,
+      nome,
+      marca,
+      cor,
+      modelo,
+      problema,
+      garantia,
+      data_garantia,
+      fotos,
+      tipo,
+      acessorios,
+      obs
     } = req.body;
 
     const garantiaBool = garantia === 'sim' ? 1 : 0;
-    const data_garantia = req.body.data_garantia === '' ? null : req.body.data_garantia;
+    const dataGarantia = data_garantia === '' ? null : data_garantia;
     const id_cliente = req.body.id_cliente;
 
     const id_aparelho = await Aparelho.criar({
@@ -44,7 +54,7 @@ exports.criarOrdem2 = async (req, res) => {
       modelo,
       problema,
       garantia: garantiaBool,
-      data_garantia,
+      data_garantia: dataGarantia,
       fotos,
       tipo,
       acessorios,
@@ -52,7 +62,9 @@ exports.criarOrdem2 = async (req, res) => {
       id_cliente: id_cliente,
     });
 
+    req.session.id_aparelho = id_aparelho;
     res.redirect('/pendentes/novo-registro');
+
   } catch (err) {
     console.error(err);
     res.status(500).send('Erro ao cadastrar aparelho');
@@ -61,12 +73,21 @@ exports.criarOrdem2 = async (req, res) => {
 
 exports.criarOrdem3 = async (req, res) => {
   try {
-    const {
-      data_registro, data_estimada, data_entrega, orcamento, valor, status_aparelho, registro_obs, id_funcionario // registro
-    } = req.body;
-    
-    const id_cliente = req.body.id_cliente;
-    const id_aparelho = req.body.id_aparelho;
+     const {
+        data_registro,
+        data_estimada,
+        data_entrega,
+        orcamento,
+        valor,
+        status_aparelho,
+        obs } = req.body;
+
+      const id_cliente = req.body.id_cliente;
+      const id_aparelho = req.body.id_aparelho || req.session.id_aparelho;
+        if (!id_aparelho) {
+          return res.status(400).send('Aparelho não informado!');
+        }
+      const statusBool = status_aparelho === 'Pendente' ? 1 : 0;
 
     await Registro.criar({
       data_registro,
@@ -74,8 +95,8 @@ exports.criarOrdem3 = async (req, res) => {
       data_entrega,
       orcamento,
       valor,
-      status_aparelho,
-      obs: registro_obs,
+      status_aparelho: statusBool,
+      obs: obs,
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
     });
