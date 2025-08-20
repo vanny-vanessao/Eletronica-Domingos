@@ -1,1 +1,1 @@
-TÁ FUNCIONANDO AEEE VAMOOO
+O banco de dados vacilou
