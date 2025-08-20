@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrônica Domingos - Consertos Pendentes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: lightskyblue;
+        }
+
+        .principal {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .cabecalho {
+            background-color: #004aad;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .container-fluid {
+            display: flex;
+            flex: 1;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .parte-botoes {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .parte-pendentes {
+            flex: 2;
+            padding: 30px 20px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .botao-dashboard {
+            width: 100%;
+            max-width: 250px;
+            padding: 20px 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .botao-dashboard i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .botao-dashboard:hover {
+            background-color: #0069d9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .botao-dashboard:active {
+            transform: translateY(1px);
+        }
+
+        h2 {
+            color: #004aad;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #004aad;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .quadro-pendente {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #d0d0d0;
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 20px;
+            background: white;
+            position: relative;
+        }
+
+        .quadro-pendente:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: #004aad;
+        }
+
+        .quadro-pendente:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #004aad;
+        }
+
+        .quadro-pendente h5 {
+            color: #004aad;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .detalhes-quadro {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .detalhes-quadro span {
+            display: flex;
+            align-items: center;
+        }
+
+        .detalhes-quadro i {
+            margin-right: 5px;
+            color: #004aad;
+        }
+
+        .nenhum-pendente {
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+            .parte-botoes {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Estilos específicos para a página de pendentes */
+        .cabecalho-pendentes {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .contador-pendentes {
+            padding: 5px 15px;
+            font-size: 1.1rem;
+            background-color: #004aad;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .busca-container {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .busca-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .busca-input:focus {
+            outline: none;
+            border-color: #004aad;
+            box-shadow: 0 0 0 2px rgba(0, 74, 173, 0.2);
+        }
+
+        .btn-buscar {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-buscar:hover {
+            background-color: #0069d9;
+        }
+
+        .btn-buscar:active {
+            transform: translateY(1px);
+        }
+
+        .voltar-dashboard {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: left;
+            justify-content: left;
+        }
+
+        .voltar-dashboard i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .cabecalho-pendentes {
+                flex-wrap: wrap;
+            }
+            
+            .busca-container {
+                margin-top: 15px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cabecalho-pendentes h2 {
+                font-size: 1.5rem;
+            }
+            
+            .voltar-dashboard {
+                font-size: 16px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    
+    <div class="principal">
+        <div class="cabecalho">
+            <h1 class="logo">Eletrônica Domingos</h1>
+            <a href="/" class="voltar-dashboard">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+
+        <div class="container-fluid">
+            <div class="parte-botoes">
+                <button class="botao-dashboard">
+                    <i class="fas fa-plus-circle"></i><a href="novo-conserto1.ejs">Novo Conserto</a>
+                </button>
+                <button class="botao-dashboard" onclick="showPending()">
+                    <i class="fas fa-clock"></i><a href="pendentesRoutes/index.ejs">Consertos Pendentes</a>
+                </button>
+                <button class="botao-dashboard" onclick="showCompleted()">
+                    <i class="fas fa-check-circle"></i> <a href="concluidosRoutes/index.ejs">Consertos Concluídos</a>
+                </button>
+            </div>
+
+            <div class="parte-pendentes">
+                <div class="cabecalho-pendentes">
+                    <h2><i class="fas fa-clock"></i> Pendentes</h2>
+                    <div class="busca-container">
+                        <input type="text" class="busca-input" id="busca-rapida" placeholder="Buscar por cliente, equipamento...">
+                        <button class="btn-buscar" id="btn-buscar">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="lista"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dados de exemplo (substituir por dados reais do banco de dados)
+        const ordensPendentes = [
+            { id: 6, cliente: "João Silva", equipamento: "Notebook Dell Inspiron", data_registro: "01/03/2024", problema: "Não liga após queda" },
+            { id: 5, cliente: "Maria Souza", equipamento: "Smartphone Samsung Galaxy S21", data_registro: "28/02/2024", problema: "Tela quebrada e não carrega" },
+            { id: 4, cliente: "Carlos Oliveira", equipamento: "TV LED 55' LG", data_registro: "25/02/2024", problema: "Sem imagem, apenas som" },
+            { id: 3, cliente: "Ana Santos", equipamento: "Micro-ondas Panasonic", data_registro: "24/02/2024", problema: "Não aquece" },
+            { id: 2, cliente: "Pedro Rocha", equipamento: "Geladeira Brastemp", data_registro: "22/02/2024", problema: "Barulho estranho no compressor" },
+            { id: 1, cliente: "Juliana Mendes", equipamento: "Tablet Samsung Galaxy Tab A", data_registro: "20/02/2024", problema: "Não conecta ao Wi-Fi" }
+        ];
+
+        // Função para renderizar os cartões de pendências
+        function renderizarCartoesPendentes() {
+            const container = document.getElementById('lista');
+            if (ordensPendentes.length === 0) {
+                container.innerHTML = `
+                    <div class="nenhum-pendente">
+                        <i class="fas fa-inbox"></i>
+                        <h4>Nenhum conserto pendente</h4>
+                        <p>Não há ordens de serviço pendentes no momento.</p>
+                    </div>
+                `;
+                return;
+            } 
+            
+            container.innerHTML = '';
+            
+            // Ordenar por data (mais antiga primeiro)
+            ordensPendentes
+                .sort((a, b) => new Date(a.data_registro.split('/').reverse().join('/')) - 
+                                new Date(b.data_registro.split('/').reverse().join('/')))
+                .forEach(ordem => {
+                    const quadro = document.createElement('div');
+                    quadro.className = 'quadro-pendente';
+                    quadro.innerHTML = `
+                        <h5>${ordem.cliente}</h5>
+                        <p><strong>Equipamento:</strong> ${ordem.equipamento}</p>
+                        <p><strong>Problema:</strong> ${ordem.problema}</p>
+                        <div class="detalhes-quadro">
+                            <span><i class="fas fa-calendar-alt"></i> Entrada: ${ordem.data_registro}</span>
+                            <span><i class="fas fa-tag"></i> OS: #${ordem.id.toString().padStart(4, '0')}</span>
+                        </div>
+                    `;
+                    quadro.addEventListener('click', () => mostrarDetalhesOrdem(ordem.id));
+                    container.appendChild(quadro);
+                });
+        }
+
+        function mostrarDetalhesOrdem(id) {
+           window.location.href = `detalhes-ordem.html?id=${id}`;
+        }
+
+        // Inicializar a página
+        window.onload = renderizarCartoesPendentes;
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const buscaInput = document.getElementById('busca-rapida');
+        const btnBuscar = document.getElementById('btn-buscar');
+        
+        // Função para realizar a busca
+        function realizarBusca() {
+            const termoBusca = buscaInput.value.trim().toLowerCase();
+            
+            buscarNaPagina(termoBusca);
+            buscaInput.value = ''; // Limpa o campo de busca após a pesquisa
+        }
+        
+        function buscarNaPagina(termo) {
+            // Supondo que você tenha elementos com classe 'item' para buscar
+            const itens = document.querySelectorAll('.item');
+            let encontrados = false;
+            
+            itens.forEach(item => {
+                const textoItem = item.textContent.toLowerCase();
+                if (textoItem.includes(termo)) {
+                    item.style.display = ''; // Mostra o item
+                    encontrados = true;
+                } else {
+                    item.style.display = 'none'; // Esconde o item
+                }
+            });
+            
+            if (!encontrados) {
+                alert('Nenhum resultado encontrado para: ' + termo);
+            }
+        }
+        
+        // Event listeners
+        btnBuscar.addEventListener('click', realizarBusca);
+        
+        // Opcional: Buscar ao pressionar Enter
+        buscaInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                realizarBusca();
+            }
+        });
+    });
+    </script>
+</body>
+</html>
