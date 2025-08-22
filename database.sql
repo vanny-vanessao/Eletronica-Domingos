@@ -1,6 +1,6 @@
-CREATE DATABASE CRUD;
+CREATE DATABASE EleDom;
 
-USE CRUD;
+USE EleDom;
 
 CREATE TABLE Endereco (
 id integer primary key auto_increment not null,
