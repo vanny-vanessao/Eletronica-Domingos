@@ -22,6 +22,8 @@ const pendentesRouter = require('./routes/pendentesRoutes');
 const indexRoutes = require('./routes/indexRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const cadastroRoutes = require('./routes/cadastroRoutes');
+const concluidosRoutes = require('./routes/concluidosRoutes');
+const canceladosRoutes = require('./routes/canceladosRoutes');
 
 //   Middleware de sessão
 app.use(session({
@@ -35,6 +37,8 @@ app.use('/', loginRoutes);
 app.use('/pendentes', pendentesRouter);
 app.use('/cadastro', cadastroRoutes);
 app.use('/inicial', indexRoutes);
+app.use('/concluidos', concluidosRoutes);
+app.use('/cancelados', canceladosRoutes);
 
 //   Função de proteção de rota
 function protegerRota(req, res, next) {

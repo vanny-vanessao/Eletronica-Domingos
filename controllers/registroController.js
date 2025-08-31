@@ -17,7 +17,7 @@ exports.criarOrdem1 = async (req, res) => {
 
     const id_cliente = await Cliente.criar({ nome, fone, rg, cpf, obs, id_endereco });
 
-    // Salve o id_cliente na sessão para usar na próxima etapa, se necessário
+    // Salve o id_cliente na sessão para usar na próxima etapa
     req.session.id_cliente = id_cliente;
 
     res.redirect('/pendentes/novo-aparelho');
@@ -37,7 +37,6 @@ exports.criarOrdem2 = async (req, res) => {
       problema,
       garantia,
       data_garantia,
-      fotos,
       tipo,
       acessorios,
       obs
@@ -46,6 +45,7 @@ exports.criarOrdem2 = async (req, res) => {
     const garantiaBool = garantia === 'sim' ? 1 : 0;
     const dataGarantia = data_garantia === '' ? null : data_garantia;
     const id_cliente = req.body.id_cliente;
+    const fotos = req.file ? '/aparelhos/' + req.file.filename : null;
 
     const id_aparelho = await Aparelho.criar({
       nome,
@@ -87,7 +87,6 @@ exports.criarOrdem3 = async (req, res) => {
         if (!id_aparelho) {
           return res.status(400).send('Aparelho não informado!');
         }
-      const statusBool = status_aparelho === 'Pendente' ? 1 : 0;
 
     await Registro.criar({
       data_registro,
@@ -95,8 +94,8 @@ exports.criarOrdem3 = async (req, res) => {
       data_entrega,
       orcamento,
       valor,
-      status_aparelho: statusBool,
-      obs: obs,
+      status_aparelho,
+      obs,
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
     });
