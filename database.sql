@@ -17,10 +17,10 @@ CREATE TABLE Cliente (
 id integer primary key auto_increment not null,
 nome varchar(50) not null,
 fone varchar (15) not null,
-rg integer not null unique,
-cpf integer not null unique,
+rg char(11) not null unique,
+cpf char(11) not null unique,
 obs varchar (100),
-id_endereco integer not null,
+id_endereco integer,
 foreign key (id_endereco) references Endereco (id)
 );
 

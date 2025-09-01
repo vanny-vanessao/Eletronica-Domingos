@@ -175,41 +175,12 @@
                     <i class="fas fa-check-circle"></i><a href="/concluidos">Consertos Concluídos</a>
                 </button>
                 <button class="botao-dashboard">
-                    <i class="fas fa-ban"></i><a href="/cancelados">Ordens Canceladas</a>
+                    <i class="fas fa-ban"></i><a href="/cancelados">Consertos Cancelados</a>
                 </button>
             </div>
 
             <div class="parte-canceladas">
-                <h2><i class="fas fa-ban"></i> Ordens Canceladas</h2>
-
-                <table class="tabela-canceladas">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Aparelho</th>
-                            <th>Status</th>
-                            <th>Data Registro</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (ordens.length > 0) { %>
-                            <% ordens.forEach(o => { %>
-                                <tr>
-                                    <td><%= o.id %></td>
-                                    <td><%= o.id_cliente %></td>
-                                    <td><%= o.id_aparelho %></td>
-                                    <td><%= o.status_aparelho %></td>
-                                    <td><%= o.data_registro %></td>
-                                </tr>
-                            <% }) %>
-                        <% } else { %>
-                            <tr>
-                                <td colspan="5" class="nenhum-cancelado">Nenhuma ordem cancelada encontrada</td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
+                <h2><i class="fas fa-ban"></i> Consertos Cancelados</h2>
             </div>
         </div>
     </div>

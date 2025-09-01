@@ -193,7 +193,7 @@
                     <i class="fas fa-check-circle"></i><a href="/concluidos">Consertos Concluídos</a>
                 </button>
                 <button class="botao-dashboard">
-                    <i class="fas fa-ban"></i><a href="/cancelados">Ordens Canceladas</a>
+                    <i class="fas fa-ban"></i><a href="/cancelados">Consertos Cancelados</a>
                 </button>
             </div>
         </div>
@@ -208,8 +208,8 @@
                             <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
                             <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
 
-                            <% if (o.fotos) { %>
-                                <img src="<%= o.fotos %>" alt="Foto do aparelho">
+                            <% if (o.aparelho_fotos) { %>
+                                <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho">
                             <% } %>
 
                             <a href="/detalhes/<%= o.id %>">Clique para ver detalhes</a>
