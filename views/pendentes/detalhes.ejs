@@ -2,87 +2,222 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Detalhes da Ordem</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrônica Domingos - Detalhes da Ordem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            margin: 0;
+            min-height: 100vh;
+            background: #87cefa;
+            display: flex;
+            flex-direction: column;
         }
-
-        .card-detalhes {
-            border: 2px solid #0d6efd;
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 30px;
+        .container-central {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+        .card-central {
             background: #fff;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+            max-width: 1100px;
+            width: 90vw;
+            overflow: hidden;
         }
-
-        .card-detalhes h3 {
-            color: #0d6efd;
+        .cabecalho-card {
+            width: 100%;
+            background: #004aad;
+            color: #fff;
+            padding: 24px 0 16px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+        }
+        .btn-voltar {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        .titulo-cabecalho {
+            flex: 1;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-right: 40px;
+        }
+        .conteudo-card {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+        }
+        .parte-botoes {
+            width: 320px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            gap: 24px;
+        }
+        .botao-dashboard {
+            width: 220px;
+            padding: 16px 0;
+            background: #004aad;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .botao-dashboard:hover {
+            background: #0069d9;
+        }
+        .pedidos-area {
+            flex: 1;
+            padding: 40px 32px 32px 32px;
+            background: #fff;
+            overflow-y: auto;
+        }
+        .detalhes-card {
+            border: 2px solid #004aad;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .detalhes-card h3 {
+            color: #004aad;
             font-weight: bold;
             margin-bottom: 20px;
             text-align: center;
         }
-
-        .card-detalhes p {
+        .detalhes-card h4 {
+            color: #004aad;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .detalhes-card p {
             margin: 8px 0;
             font-size: 16px;
         }
-
-        .card-detalhes strong {
-            color: #0d6efd;
+        .detalhes-card strong {
+            color: #004aad;
         }
-
-        .card-detalhes img {
+        .detalhes-card img {
             display: block;
             margin: 20px auto;
             max-width: 250px;
             max-height: 250px;
             border-radius: 12px;
         }
-
         .btn-actions {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
         }
+        .btn-actions button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            color: #fff;
+        }
+        .btn-success {
+            background: #28a745;
+        }
+        .btn-danger {
+            background: #dc3545;
+        }
+        .btn-success:hover {
+            background: #218838;
+        }
+        .btn-danger:hover {
+            background: #c82333;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <a href="/ordens/pendentes" class="btn btn-secondary mt-3">Voltar</a>
+    <div class="container-central">
+        <div class="card-central">
+            <div class="cabecalho-card">
+                <a class="btn-voltar" href="/pendentes"><i class="fas fa-arrow-left"></i> Voltar</a>
+                <div class="titulo-cabecalho">Detalhes da Ordem</div>
+            </div>
+                <div class="pedidos-area">
+                    <div class="detalhes-card">
+                        <h4>Data de Registro: <%= ordem.data_registro.toLocaleDateString("pt-BR") %></h4><br>
+                        <h4>Informações do Cliente</h4>
+                       
+                        <p><strong>Nome:</strong> <%= ordem.cliente_nome %></p>
+                        <p><strong>Contato:</strong> <%= ordem.cliente_fone %></p>
+                        <p><strong>RG:</strong> <%= ordem.cliente_rg %></p>
+                        <p><strong>CPF:</strong> <%= ordem.cliente_cpf %></p>
+                        <p><strong>Observações:</strong> <%= ordem.cliente_obs || "Nenhuma observação" %></p>
+                        <br>
 
-    <div class="card-detalhes">
-        <h3>Detalhes da Ordem</h3>
+                        <h4>Informações do Aparelho</h4>
 
-        <p><strong>Data de Registro:</strong> <%= ordem.data_registro.toLocaleDateString("pt-BR") %></p>
-        <p><strong>Data Estimada:</strong> <%= ordem.data_estimada ? ordem.data_estimada.toLocaleDateString("pt-BR") : "Não informada" %></p>
-        <p><strong>Data de Entrega:</strong> <%= ordem.data_entrega ? ordem.data_entrega.toLocaleDateString("pt-BR") : "Não entregue ainda" %></p>
+                        <p><strong>Nome:</strong> <%= ordem.aparelho_nome %></p>
+                        <p><strong>Problema:</strong> <%= ordem.aparelho_problema %></p> 
+                        <p><strong>Tipo:</strong> <%= ordem.aparelho_tipo %></p> 
+                        <p><strong>Modelo:</strong> <%= ordem.aparelho_modelo %></p>
+                        <p><strong>Marca:</strong> <%= ordem.aparelho_marca %></p>
+                        <p><strong>Cor:</strong> <%= ordem.aparelho_cor %></p> 
+                        <p><strong>Garantia:</strong> <%= ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") || "Sem Garantia" %></p> 
+                        <p><strong>Acessórios:</strong> <%= ordem.aparelho_acessorios || "Nenhum acessório" %></p> 
+                        <p><strong>Observações:</strong> <%= ordem.aparelho_obs || "Nenhuma observação" %></p>
+                        <% if (ordem.aparelho_fotos) { %>
+                            <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho"> <!-- ta vindo null-->
+                        <% } %>
+                        <br>
 
-        <p><strong>Cliente:</strong> <%= ordem.cliente.nome %></p>
-        <p><strong>Aparelho:</strong> <%= ordem.aparelho.nome %></p>
-        <p><strong>Problema:</strong> <%= ordem.aparelho.problema %></p>
+                        <h4>Informações de Registro</h4>
 
-        <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
-        <p><strong>Valor:</strong> R$ <%= ordem.valor %></p>
+                        <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
+                        <p><strong>Orçamento:</strong> <%= ordem.orcamento %></p>
+                        <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p> <!-- ta vindo null-->
 
-        <p><strong>Observações:</strong> <%= ordem.registro_obs || "Nenhuma observação" %></p>
+                        <% if (ordem.aparelho_fotos) { %>
+                            <img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
+                        <% } %>
 
-        <% if (ordem.aparelho_fotos) { %>
-            <img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
-        <% } %>
-
-        <div class="btn-actions">
-            <form action="/ordens/<%= ordem.id %>/concluir" method="POST">
-                <button type="submit" class="btn btn-success">Concluir</button>
-            </form>
-            <form action="/ordens/<%= ordem.id %>/cancelar" method="POST">
-                <button type="submit" class="btn btn-danger">Cancelar</button>
-            </form>
+                        <div class="btn-actions">
+                            <form action="" method="POST">
+                                <button type="submit" class="btn-success">Concluir</button>
+                            </form>
+                            <form action="" method="POST">
+                                <button type="submit" class="btn-danger">Cancelar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>

@@ -52,9 +52,7 @@
             margin-left: 24px;
             transition: color 0.2s;
         }
-        .btn-voltar:hover {
-            color: #ffeb3b;
-        }
+
         .titulo-cabecalho {
             flex: 1;
             text-align: center;
@@ -209,9 +207,9 @@
                                     <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
                                     <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
                                     <% if (o.aparelho_fotos) { %>
-                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho">
+                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho"> <!--ta vindo null-->
                                     <% } %>
-                                    <a href="/detalhes/<%= o.id %>">Clique para ver detalhes</a>
+                                    <a href="/pendentes/detalhes/<%= o.id %>">Clique para ver detalhes</a>
                                 </div>
                             <% }) %>
                         <% } else { %>

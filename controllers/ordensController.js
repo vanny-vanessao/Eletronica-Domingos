@@ -24,21 +24,37 @@ exports.detalhesOrdem = async (req, res) => {
     try {
         const [result] = await db.query(`
             SELECT 
-                registro.*, 
+                registro.*,
                 cliente.nome AS cliente_nome, 
-                aparelho.nome AS aparelho_nome, 
+                cliente.fone AS cliente_fone, 
+                cliente.rg AS cliente_rg,
+                cliente.cpf AS cliente_cpf,
+                cliente.obs AS cliente_obs,
+                aparelho.nome AS aparelho_nome,
                 aparelho.problema AS aparelho_problema,
+                aparelho.tipo AS aparelho_tipo,
+                aparelho.modelo AS aparelho_modelo,
+                aparelho.marca AS aparelho_marca,
+                aparelho.cor AS aparelho_cor,
+                aparelho.data_garantia AS aparelho_data_garantia,
+                aparelho.acessorios AS aparelho_acessorios,
+                aparelho.obs AS aparelho_obs,
                 aparelho.fotos AS aparelho_fotos
             FROM registro
             LEFT JOIN cliente ON registro.id_cliente = cliente.id
             LEFT JOIN aparelho ON registro.id_aparelho = aparelho.id
             WHERE registro.id = ?
         `, [req.params.id]);
+
+        console.log("Resultado da query:", result[0]);
+
         res.render('pendentes/detalhes', { ordem: result[0] });
     } catch (err) {
+        console.error(err);
         res.status(500).send('Erro ao buscar detalhes da ordem');
     }
 };
+
 
 
 exports.listarCancelados = async (req, res) => {
