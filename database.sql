@@ -60,6 +60,8 @@ status_aparelho ENUM('Pendente','Concluído','Cancelado') NOT NULL DEFAULT 'Pend
 obs varchar(100),
 id_cliente integer not null,
 id_aparelho integer not null,
+id_endereco integer,
 foreign key (id_cliente) references Cliente (id),
-foreign key (id_aparelho) references Aparelho (id)
+foreign key (id_aparelho) references Aparelho (id),
+foreign key (id_endereco) references Endereco (id)
 );

@@ -171,6 +171,7 @@
                 <div class="pedidos-area">
                     <div class="detalhes-card">
                         <h4>Data de Registro: <%= ordem.data_registro.toLocaleDateString("pt-BR") %></h4><br>
+
                         <h4>Informações do Cliente</h4>
                        
                         <p><strong>Nome:</strong> <%= ordem.cliente_nome %></p>
@@ -178,6 +179,20 @@
                         <p><strong>RG:</strong> <%= ordem.cliente_rg %></p>
                         <p><strong>CPF:</strong> <%= ordem.cliente_cpf %></p>
                         <p><strong>Observações:</strong> <%= ordem.cliente_obs || "Nenhuma observação" %></p>
+                        <br>
+
+                        <h4>Endereço do Cliente</h4>
+
+                        <% if (ordem.id_endereco) { %>
+                            <p><strong>Rua:</strong> <%= ordem.endereco_rua %></p>
+                            <p><strong>Número:</strong> <%= ordem.endereco_numero %></p>
+                            <p><strong>Bairro:</strong> <%= ordem.endereco_bairro %></p>
+                            <p><strong>Complemento:</strong> <%= ordem.endereco_complemento %></p>
+                            <p><strong>Cidade:</strong> <%= ordem.endereco_cidade %></p>
+                            <p><strong>UF:</strong> <%= ordem.endereco_uf %></p>
+                            <p><strong>CEP:</strong> <%= ordem.endereco_cep %></p>
+                        <p><strong>Garantia:</strong>
+                        <% } else { %> <strong>Endereço não fornecido</strong> <% } %></p>
                         <br>
 
                         <h4>Informações do Aparelho</h4>
@@ -188,23 +203,20 @@
                         <p><strong>Modelo:</strong> <%= ordem.aparelho_modelo %></p>
                         <p><strong>Marca:</strong> <%= ordem.aparelho_marca %></p>
                         <p><strong>Cor:</strong> <%= ordem.aparelho_cor %></p> 
-                        <p><strong>Garantia:</strong> <%= ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") || "Sem Garantia" %></p> 
+                        <p><strong>Garantia:</strong> 
+                        <%= ordem.aparelho_data_garantia ? ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") : "Sem Garantia" %></p> 
                         <p><strong>Acessórios:</strong> <%= ordem.aparelho_acessorios || "Nenhum acessório" %></p> 
                         <p><strong>Observações:</strong> <%= ordem.aparelho_obs || "Nenhuma observação" %></p>
                         <% if (ordem.aparelho_fotos) { %>
-                            <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho"> <!-- ta vindo null-->
+                            <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
                         <% } %>
                         <br>
 
                         <h4>Informações de Registro</h4>
 
                         <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
-                        <p><strong>Orçamento:</strong> <%= ordem.orcamento %></p>
-                        <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p> <!-- ta vindo null-->
-
-                        <% if (ordem.aparelho_fotos) { %>
-                            <img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
-                        <% } %>
+                        <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
+                        <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
 
                         <div class="btn-actions">
                             <form action="" method="POST">

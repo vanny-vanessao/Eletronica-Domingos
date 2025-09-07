@@ -55,7 +55,7 @@ exports.criarOrdem2 = async (req, res) => {
       problema,
       garantia: garantiaBool,
       data_garantia: dataGarantia,
-      fotos,
+      fotos: fotos,
       tipo,
       acessorios,
       obs,

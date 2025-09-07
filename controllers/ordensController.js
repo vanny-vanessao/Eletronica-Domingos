@@ -39,10 +39,18 @@ exports.detalhesOrdem = async (req, res) => {
                 aparelho.data_garantia AS aparelho_data_garantia,
                 aparelho.acessorios AS aparelho_acessorios,
                 aparelho.obs AS aparelho_obs,
-                aparelho.fotos AS aparelho_fotos
+                aparelho.fotos AS aparelho_fotos,
+                endereco.cep AS endereco_cep,
+                endereco.rua AS endereco_rua,
+                endereco.numero AS endereco_numero,
+                endereco.complemento AS endereco_complemento,
+                endereco.bairro AS endereco_bairro,
+                endereco.cidade AS endereco_cidade,
+                endereco.uf AS endereco_uf
             FROM registro
             LEFT JOIN cliente ON registro.id_cliente = cliente.id
             LEFT JOIN aparelho ON registro.id_aparelho = aparelho.id
+            LEFT JOIN endereco ON registro.id_endereco = endereco.id
             WHERE registro.id = ?
         `, [req.params.id]);
 

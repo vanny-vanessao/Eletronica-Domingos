@@ -3,15 +3,25 @@ const router = express.Router();
 const registroController = require('../controllers/registroController');
 const ordensController = require('../controllers/ordensController');
 const multer = require('multer');
+const fs = require("fs");
 const path = require('path');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/aparelhos/');
+    const dir = path.join(__dirname, "../public/aparelhos");
+
+    // cria a pasta caso não exista
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    cb(null, dir); // só chama depois de garantir que existe
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + path.extname(file.originalname));
   }
 });
+
 const upload = multer({ storage: storage });
 
 
