@@ -191,8 +191,7 @@
                             <p><strong>Cidade:</strong> <%= ordem.endereco_cidade %></p>
                             <p><strong>UF:</strong> <%= ordem.endereco_uf %></p>
                             <p><strong>CEP:</strong> <%= ordem.endereco_cep %></p>
-                        <p><strong>Garantia:</strong>
-                        <% } else { %> <strong>Endereço não fornecido</strong> <% } %></p>
+                        <% } else { %> <strong>Endereço não fornecido</strong> <% } %>
                         <br>
 
                         <h4>Informações do Aparelho</h4>
@@ -217,6 +216,7 @@
                         <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
                         <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
                         <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
+                        <p><strong>Cadastrado por:</strong> <%= ordem.funcionario_nome %></p>
 
                         <div class="btn-actions">
                             <form action="" method="POST">

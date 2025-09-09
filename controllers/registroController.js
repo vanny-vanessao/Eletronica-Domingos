@@ -17,8 +17,8 @@ exports.criarOrdem1 = async (req, res) => {
 
     const id_cliente = await Cliente.criar({ nome, fone, rg, cpf, obs, id_endereco });
 
-    // Salve o id_cliente na sessão para usar na próxima etapa
     req.session.id_cliente = id_cliente;
+    req.session.id_endereco = id_endereco;
 
     res.redirect('/pendentes/novo-aparelho');
   } catch (err) {
@@ -83,6 +83,7 @@ exports.criarOrdem3 = async (req, res) => {
         obs } = req.body;
 
       const id_cliente = req.body.id_cliente;
+      const id_endereco = req.body.id_endereco || req.session.id_endereco;
       const id_aparelho = req.body.id_aparelho || req.session.id_aparelho;
         if (!id_aparelho) {
           return res.status(400).send('Aparelho não informado!');
@@ -98,7 +99,9 @@ exports.criarOrdem3 = async (req, res) => {
       obs,
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
+      id_endereco: id_endereco
     });
+
 
     res.redirect('/pendentes');
   } catch (err) {

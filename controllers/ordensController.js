@@ -23,36 +23,48 @@ exports.listarPendentes = async (req, res) => {
 exports.detalhesOrdem = async (req, res) => {
     try {
         const [result] = await db.query(`
-            SELECT 
-                registro.*,
-                cliente.nome AS cliente_nome, 
-                cliente.fone AS cliente_fone, 
-                cliente.rg AS cliente_rg,
-                cliente.cpf AS cliente_cpf,
-                cliente.obs AS cliente_obs,
-                aparelho.nome AS aparelho_nome,
-                aparelho.problema AS aparelho_problema,
-                aparelho.tipo AS aparelho_tipo,
-                aparelho.modelo AS aparelho_modelo,
-                aparelho.marca AS aparelho_marca,
-                aparelho.cor AS aparelho_cor,
-                aparelho.data_garantia AS aparelho_data_garantia,
-                aparelho.acessorios AS aparelho_acessorios,
-                aparelho.obs AS aparelho_obs,
-                aparelho.fotos AS aparelho_fotos,
-                endereco.cep AS endereco_cep,
-                endereco.rua AS endereco_rua,
-                endereco.numero AS endereco_numero,
-                endereco.complemento AS endereco_complemento,
-                endereco.bairro AS endereco_bairro,
-                endereco.cidade AS endereco_cidade,
-                endereco.uf AS endereco_uf
-            FROM registro
-            LEFT JOIN cliente ON registro.id_cliente = cliente.id
-            LEFT JOIN aparelho ON registro.id_aparelho = aparelho.id
-            LEFT JOIN endereco ON registro.id_endereco = endereco.id
-            WHERE registro.id = ?
-        `, [req.params.id]);
+        SELECT 
+            registro.*,
+
+            cliente.id AS cliente_id,
+            cliente.nome AS cliente_nome,
+            cliente.fone AS cliente_fone,
+            cliente.rg AS cliente_rg,
+            cliente.cpf AS cliente_cpf,
+            cliente.obs AS cliente_obs,
+
+            aparelho.id AS aparelho_id,
+            aparelho.nome AS aparelho_nome,
+            aparelho.marca AS aparelho_marca,
+            aparelho.modelo AS aparelho_modelo,
+            aparelho.cor AS aparelho_cor,
+            aparelho.problema AS aparelho_problema,
+            aparelho.tipo AS aparelho_tipo,
+            aparelho.data_garantia AS aparelho_data_garantia,
+            aparelho.acessorios AS aparelho_acessorios,
+            aparelho.obs AS aparelho_obs,
+            aparelho.fotos AS aparelho_fotos,
+
+            endereco.id AS endereco_id,
+            endereco.cep AS endereco_cep,
+            endereco.rua AS endereco_rua,
+            endereco.numero AS endereco_numero,
+            endereco.complemento AS endereco_complemento,
+            endereco.bairro AS endereco_bairro,
+            endereco.cidade AS endereco_cidade,
+            endereco.uf AS endereco_uf,
+
+            funcionario.id AS funcionario_id,
+            funcionario.nome AS funcionario_nome
+
+        FROM registro
+        LEFT JOIN cliente ON registro.id_cliente = cliente.id
+        LEFT JOIN aparelho ON registro.id_aparelho = aparelho.id
+        LEFT JOIN endereco ON registro.id_endereco = endereco.id
+        LEFT JOIN registro ON registro.id_funcionario = funcionario.id
+        WHERE registro.id = ?
+    `, [req.params.id]);
+
 
         console.log("Resultado da query:", result[0]);
 

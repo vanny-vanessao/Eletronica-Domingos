@@ -9,7 +9,7 @@ numero integer,
 bairro varchar(40) not null,
 complemento varchar(20) not null,
 cidade varchar(40) not null,
-UF char(2) not null,
+UF varchar(20) not null,
 CEP char(9) not null
 );
 
@@ -61,7 +61,11 @@ obs varchar(100),
 id_cliente integer not null,
 id_aparelho integer not null,
 id_endereco integer,
+id_funcionario integer not null,
 foreign key (id_cliente) references Cliente (id),
 foreign key (id_aparelho) references Aparelho (id),
-foreign key (id_endereco) references Endereco (id)
+foreign key (id_endereco) references Endereco (id),
+foreign key (id_funcionario) references Funcionario (id)
 );
+
+
