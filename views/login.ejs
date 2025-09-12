@@ -1,126 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Entrar - Eletrônica Domingos</title>
     <style>
-        body{
-            height: 100%;
-            background-color: #f0f0f0;
-        }
-
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: lightskyblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        display: flex;
+        height: 100vh;
+        width: 120vw;
+        box-shadow: none;
+      }
+      .left-panel {
+        flex: 1;
+        background-color: #000;
+        position: relative;
+      }
+      .left-panel img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .caption {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        color: white;
+        font-size: 20px;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+      .right-panel {
+        flex: 1;
+        background-color: #004aad;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .form-box {
+        background-color: white;
+        padding: 40px;
+        border-radius: 20px;
+        width: 380px;
+        text-align: center;
+      }
+      .form-box h2 {
+        margin-bottom: 10px;
+      }
+      .form-box p {
+        margin-bottom: 20px;
+      }
+      .form-box input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+      }
+      .form-box button {
+        width: 100%;
+        padding: 10px;
+        background-color: #004aad;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .form-box button:hover {
+        background-color: #0069d9;
+      }
+      .form-box .links {
+        margin-top: 15px;
+      }
+      .form-box .links a {
+        color: #004aad;
+        text-decoration: none;
+        font-size: 14px;
+      }
+      @media (max-width: 900px) {
         .container {
-            display: flex;
-            height: 100vh;
-            width: 100%;
+          flex-direction: column;
+          height: auto;
+          min-height: 100vh;
+          max-width: 100vw;
         }
-
-        .left-panel {
-            flex: 1;
-            background-color: #000;
-            position: relative;
-        }
-
-        .left-panel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .caption {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-            font-size: 20px;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
+        .left-panel,
         .right-panel {
-            flex: 1;
-            background-color: #004aad;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          flex: none;
+          width: 100vw;
+          height: 50vh;
         }
-
-        .form-box {
-            background-color: white;
-            padding: 40px;
-            border-radius: 20px;
-            width: 300px;
-            text-align: center;
-        }
-
-        .form-box h2 {
-            margin-bottom: 10px;
-        }
-
-        .form-box p {
-            margin-bottom: 20px;
-        }
-
-        .form-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-
-        .form-box button {
-            width: 100%;
-            padding: 10px;
-            background-color: #004aad;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .form-box button:hover {
-            background-color: #0069d9;
-        }
-
-        .form-box .links {
-            margin-top: 15px;
-        }
-
-        .form-box .links a {
-            color: #004aad;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="left-panel">
-            <img src="/imgs/foto_login.png" alt="Cachorro fofo" width="200" height="200">
-        </div>
-        <div class="right-panel">
-            <div class="form-box">
-                <h2>Eletrônica Domingos</h2>
-                <p>Bem-vindo!</p>
-                <% if (erro) { %>
-                <div class="alert alert-danger"><%= erro %></div>
-                <% } %>
-                <form action="/" method="POST">
-                    <input type="text" name="usuario" placeholder="Usuário" required>
-                    <input type="password" name="senha" placeholder="Senha" required>
-                    <button type="submit">Entrar</button>
-                    <div class="links">
-                        
-                       Ainda não tem uma conta?  <a href="/cadastro">Cadastre-se!</a>
-                    </div>
-                </form>
+      <div class="left-panel">
+        <img
+          src="/imgs/foto_login.png"
+          alt="Cachorro fofo"
+          width="200"
+          height="200"
+        />
+      </div>
+      <div class="right-panel">
+        <div class="form-box">
+          <h2>Eletrônica Domingos</h2>
+          <p>Bem-vindo!</p>
+          <% if (erro) { %>
+          <div class="alert alert-danger"><%= erro %></div>
+          <% } %>
+          <form action="/" method="POST">
+            <input type="text" name="usuario" placeholder="Usuário" required />
+            <input type="password" name="senha" placeholder="Senha" required />
+            <button type="submit">Entrar</button>
+            <div class="links">
+              Ainda não tem uma conta? <a href="/cadastro">Cadastre-se!</a>
             </div>
+          </form>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

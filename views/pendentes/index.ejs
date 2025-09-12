@@ -21,15 +21,17 @@
             width: 100%;
         }
         .card-central {
-            background: #fff;
-            border-radius: 18px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
             display: flex;
             flex-direction: column;
-            min-height: 600px;
-            max-width: 1100px;
-            width: 90vw;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            border-radius: 15px;
             overflow: hidden;
+            width: 90vw;
+            
         }
         .cabecalho-card {
             width: 100%;
@@ -73,24 +75,23 @@
             flex-direction: column;
             align-items: center;
             padding: 40px 0;
-            gap: 24px;
+            
         }
         .botao-dashboard {
-            width: 220px;
-            padding: 16px 0;
-            background: #004aad;
-            color: #fff;
+           width: 100%;
+            max-width: 250px;
+            padding: 20px 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
+            background-color: #004aad;
+            color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
         }
         .botao-dashboard:hover {
             background: #0069d9;
@@ -193,7 +194,7 @@
                     <a class="botao-dashboard" href="/pendentes"><i class="fas fa-clock"></i> Consertos Pendentes</a>
                     <a class="botao-dashboard" href="/concluidos"><i class="fas fa-check-circle"></i> Consertos concluídos</a>
                     <a class="botao-dashboard" href="/cancelados"><i class="fas fa-ban"></i> Consertos Cancelados</a>
-                    <a class="botao-dashboard" href="/logout"><i class="fas fa-sign-out-alt"></i> Sair</a>
+                   
                 </div>
                 <div class="pedidos-area">
                     <h2><i class="fas fa-exclamation-triangle"></i> Principais Pendentes</h2>
