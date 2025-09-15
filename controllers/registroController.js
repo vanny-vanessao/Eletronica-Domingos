@@ -83,6 +83,10 @@ exports.criarOrdem3 = async (req, res) => {
         obs } = req.body;
 
       const id_cliente = req.body.id_cliente;
+      const id_funcionario = req.session.usuario.id_funcionario;
+      if (!id_cliente) {
+        return res.status(400).send('Cliente não informado!');
+      }
       const id_endereco = req.body.id_endereco || req.session.id_endereco;
       const id_aparelho = req.body.id_aparelho || req.session.id_aparelho;
         if (!id_aparelho) {
@@ -99,7 +103,8 @@ exports.criarOrdem3 = async (req, res) => {
       obs,
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
-      id_endereco: id_endereco
+      id_endereco: id_endereco,
+      id_funcionario: id_funcionario
     });
 
 
