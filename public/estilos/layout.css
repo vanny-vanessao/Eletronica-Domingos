@@ -1,0 +1,166 @@
+body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: lightskyblue;
+        }
+
+        .principal {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .cabecalho {
+            background-color: #004aad;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .container-fluid {
+            display: flex;
+            flex: 1;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .parte-botoes {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .parte-pendentes {
+            flex: 2;
+            padding: 30px 20px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .botao-dashboard {
+            width: 100%;
+            max-width: 250px;
+            padding: 20px 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .botao-dashboard i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .botao-dashboard:hover {
+            background-color: #0069d9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .botao-dashboard:active {
+            transform: translateY(1px);
+        }
+
+        h2 {
+            color: #004aad;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #004aad;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .quadro-pendente {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #d0d0d0;
+            border-radius: 10px;
+            margin: 15px 0;
+            padding: 20px;
+            background: white;
+            position: relative;
+        }
+
+        .quadro-pendente:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: #004aad;
+        }
+
+        .quadro-pendente:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-color: #004aad;
+        }
+
+        .quadro-pendente h5 {
+            color: #004aad;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .detalhes-quadro {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .detalhes-quadro span {
+            display: flex;
+            align-items: center;
+        }
+
+        .detalhes-quadro i {
+            margin-right: 5px;
+            color: #004aad;
+        }
+
+        .nenhum-pendente {
+            text-align: center;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+            .parte-botoes {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+
+        a{
+            text-decoration: none;
+            color: white;
+        }

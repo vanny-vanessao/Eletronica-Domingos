@@ -1,0 +1,164 @@
+ .order-card {
+            cursor: pointer;
+            transition: transform 0.2s;
+            }
+        .order-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
+            }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background-color: lightskyblue;
+        }
+
+        .principal {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            min-height: 90vh;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-shadow: 0 0 25px rgba(0,0,0,0.25);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .cabecalho {
+            background-color: #004aad;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .container-fluid {
+            display: flex;
+            flex: 1;
+            padding: 0;
+            gap: 30px;
+        }
+
+        .parte-botoes {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .parte-concluidos {
+            flex: 2;
+            padding: 30px 20px;
+            background: white;
+            overflow-y: auto;
+        }
+
+        .botao-dashboard {
+            width: 100%;
+            max-width: 250px;
+            padding: 20px 15px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 12px;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .botao-dashboard i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .botao-dashboard:hover {
+            background-color: #0069d9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .botao-dashboard:active {
+            transform: translateY(1px);
+        }
+
+        h2 {
+            color: #004aad;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #004aad;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .tabela-concluidos {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .tabela-concluidos th, .tabela-concluidos td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .tabela-concluidos th {
+            background-color: #004aad;
+            color: white;
+        }
+
+        .tabela-concluidos tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .nenhum-concluido {
+            text-align: center;
+            padding: 30px;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .btn-voltar {
+            color: #fff;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        .btn-reabrir {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #ffc107;
+            border: none;
+            color: black;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reabrir:hover {
+            background-color: #e0a800;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                flex-direction: column;
+            }
+        }
