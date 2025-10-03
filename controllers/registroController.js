@@ -79,21 +79,27 @@ exports.criarOrdem3 = async (req, res) => {
         status_aparelho,
         obs } = req.body;
 
-      const id_cliente = req.body.id_cliente;
-      /*const id_funcionario = req.session.cookie.httpOnly;
-      console.log("TA AQUI ----------------------")
-      console.log(req.session.cookie.httpOnly);
-      console.log("TA AQUI ----------------------")*/
 
+      const id_cliente = req.body.id_cliente;
+      const id_funcionario = req.session.usuario.id
+      const id_endereco = req.body.id_endereco || req.session.id_endereco;
+      const id_aparelho = req.body.id_aparelho || req.session.id_aparelho;
       
+      
+      console.log("TA AQUI ----------------------")
+        console.log(id_funcionario);
+      console.log("TA AQUI ----------------------")
+      
+      
+      if (!id_funcionario) {
+        return res.status(400).send('Funcionário não informado!');
+      }
       if (!id_cliente) {
         return res.status(400).send('Cliente não informado!');
       }
-      const id_endereco = req.body.id_endereco || req.session.id_endereco;
-      const id_aparelho = req.body.id_aparelho || req.session.id_aparelho;
-        if (!id_aparelho) {
-          return res.status(400).send('Aparelho não informado!');
-        }
+      if (!id_aparelho) {
+        return res.status(400).send('Aparelho não informado!');
+      }
 
     await Registro.criar({
       data_estimada,
@@ -103,6 +109,7 @@ exports.criarOrdem3 = async (req, res) => {
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
       id_endereco: id_endereco,
+      id_funcionario: id_funcionario,
     });
 
 
