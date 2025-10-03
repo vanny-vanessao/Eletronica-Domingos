@@ -74,16 +74,18 @@ exports.criarOrdem2 = async (req, res) => {
 exports.criarOrdem3 = async (req, res) => {
   try {
      const {
-        data_registro,
         data_estimada,
-        data_entrega,
         orcamento,
-        valor,
         status_aparelho,
         obs } = req.body;
 
       const id_cliente = req.body.id_cliente;
-      const id_funcionario = req.session.usuario.id_funcionario;
+      /*const id_funcionario = req.session.cookie.httpOnly;
+      console.log("TA AQUI ----------------------")
+      console.log(req.session.cookie.httpOnly);
+      console.log("TA AQUI ----------------------")*/
+
+      
       if (!id_cliente) {
         return res.status(400).send('Cliente não informado!');
       }
@@ -94,17 +96,13 @@ exports.criarOrdem3 = async (req, res) => {
         }
 
     await Registro.criar({
-      data_registro,
       data_estimada,
-      data_entrega,
       orcamento,
-      valor,
       status_aparelho,
       obs,
       id_cliente: id_cliente,
       id_aparelho: id_aparelho,
       id_endereco: id_endereco,
-      id_funcionario: id_funcionario
     });
 
 

@@ -28,7 +28,8 @@ const upload = multer({ storage: storage });
 // Página de listagem dos pendentes
 router.get('/', ordensController.listarPendentes);
 router.get('/detalhes/:id', ordensController.detalhesOrdem);
-
+router.post('/concluir', ordensController.concluir);
+router.post('/cancelar', ordensController.cancelar);
 
 // Páginas do formulário de novo conserto
 router.get('/novo-cliente', (req, res) => {

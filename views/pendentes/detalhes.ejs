@@ -66,16 +66,90 @@
 
                         <div class="btn-actions">
                             <form action="" method="POST">
-                                <button type="submit" class="btn-success">Concluir</button>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#concluirModal" data-id="<%= ordem.id_ordem %>">
+                                Concluir
+                                </button>
                             </form>
-                            <form action="" method="POST">
-                                <button type="submit" class="btn-danger">Cancelar</button>
-                            </form>
+                            <button type="button" class="btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal" data-id="<%= ordem.id_ordem %>">
+                                Cancelar
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Concluir -->
+    <div class="modal fade" id="concluirModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" action="/pendentes/concluir" method="POST">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Concluir Ordem</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- id da ordem (hidden) -->
+                        <input type="hidden" name="id_ordem" id="idOrdemInput">
+                        <div class="mb-3">
+                            <label for="valor" class="form-label">Valor Final</label>
+                            <input type="number" class="form-control" name="valor" id="valor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="data_entrega" class="form-label">Data de Entrega</label>
+                            <input type="date" class="form-control" name="data_entrega" id="data_entrega">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Salvar e Concluir</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cancelar -->
+    <div class="modal fade" id="cancelarModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form method="POST" action="/pendentes/cancelar" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cancelar Ordem</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- id da ordem (hidden) -->
+                    <input type="hidden" name="id_ordem" value="<%= ordem.id %>">
+                    <div class="mb-3">
+                        <label for="obs" class="form-label">Motivo do cancelamento</label>
+                        <textarea class="form-control" name="obs" id="obs" required></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-danger">Confirmar Cancelamento</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const concluirModal = document.getElementById('concluirModal');
+        concluirModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; 
+            const ordemId = button.getAttribute('data-id');
+            document.getElementById('idOrdemInput').value = ordemId;
+        });
+
+        const cancelarModal = document.getElementById('cancelarModal');
+        cancelarModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget; 
+            const ordemId = button.getAttribute('data-id');
+            document.getElementById('idOrdemInput').value = ordemId;
+        });
+    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

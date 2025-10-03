@@ -52,16 +52,11 @@ exports.detalhesOrdem = async (req, res) => {
             endereco.complemento AS endereco_complemento,
             endereco.bairro AS endereco_bairro,
             endereco.cidade AS endereco_cidade,
-            endereco.uf AS endereco_uf,
-
-            funcionario.id AS funcionario_id,
-            funcionario.nome AS funcionario_nome
-
+            endereco.uf AS endereco_uf
         FROM registro
         LEFT JOIN cliente ON registro.id_cliente = cliente.id
         LEFT JOIN aparelho ON registro.id_aparelho = aparelho.id
         LEFT JOIN endereco ON registro.id_endereco = endereco.id
-        LEFT JOIN registro ON registro.id_funcionario = funcionario.id
         WHERE registro.id = ?
     `, [req.params.id]);
 
@@ -75,7 +70,35 @@ exports.detalhesOrdem = async (req, res) => {
     }
 };
 
+exports.cancelar = async (req, res) => {
+  const { id_ordem, obs } = req.body;
 
+  try {
+    await db.query(
+      "UPDATE registro SET status = 'Cancelado', obs = ? WHERE id = ?",
+      [obs, id_ordem]
+    );
+    res.redirect('/cancelados');
+  } catch (err) {
+    console.error("Erro ao cancelar ordem:", err);
+    res.status(500).send("Erro ao cancelar ordem");
+  }
+};
+
+exports.concluir = async (req, res) => {
+  const { id_ordem, data_entrega, valor } = req.body;
+
+  try {
+    await db.query(
+      "UPDATE registro SET status_aparelho = 'Concluído', data_entrega = ?, valor = ? WHERE id = ?",
+      [data_entrega, valor, id_ordem]
+    );
+    res.redirect('/concluidos'); 
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Erro ao concluir ordem");
+  }
+};
 
 exports.listarCancelados = async (req, res) => {
     try {

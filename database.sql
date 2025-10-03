@@ -51,21 +51,17 @@ usuario varchar (40) not null unique
 
 CREATE TABLE Registro (
 id integer primary key auto_increment not null,
-data_registro date not null,
+data_registro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 data_estimada date not null,
-data_entrega date not null,
+data_entrega date,
 orcamento real not null,
-valor real not null,
+valor real,
 status_aparelho ENUM('Pendente','Concluído','Cancelado') NOT NULL DEFAULT 'Pendente',
 obs varchar(100),
 id_cliente integer not null,
 id_aparelho integer not null,
 id_endereco integer,
-id_funcionario integer not null,
 foreign key (id_cliente) references Cliente (id),
 foreign key (id_aparelho) references Aparelho (id),
-foreign key (id_endereco) references Endereco (id),
-foreign key (id_funcionario) references Funcionario (id)
+foreign key (id_endereco) references Endereco (id)
 );
-
-

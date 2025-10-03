@@ -21,20 +21,11 @@
             <form class="w-100" action="/pendentes/novo-registro" method="POST">
                 <h4>Informações do Registro</h4>
 
-                <p>Data do Registro</p> <!-- Isso deve ser automático, pegar a data atual -->
-                <input type="date" class="form-control" name="data_registro" required>
-
                 <p>Data Estimada</p>
                 <input type="date" class="form-control" name="data_estimada">
 
-                <p>Data de Entrega</p> <!--Isso tem que ser em outra tela, em detalhes de pendentes-->
-                <input type="date" class="form-control" name="data_entrega">
-
                 <p>Orçamento</p>
                 <input type="number" step="0.01" class="form-control" name="orcamento" placeholder="Valor do orçamento">
-
-                <p>Valor Final</p> <!--Isso tem que ser em outra tela, em detalhes de pendentes-->
-                <input type="number" step="0.01" class="form-control" name="valor" placeholder="Valor final cobrado">
 
                 <p>Observações</p>
                 <textarea class="form-control" name="obs" rows="4" placeholder="Observações adicionais..."></textarea>
