@@ -1,171 +1,383 @@
- body {
-            margin: 0;
-            min-height: 100vh;
-            background: #87cefa;
-            display: flex;
-            flex-direction: column;
-        }
-        .container-central {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-        .card-central {
-            display: flex;
-            flex-direction: column;
-            background-color: white;
-            min-height: 90vh;
-            max-width: 1200px;
-            margin: 20px auto;
-            box-shadow: 0 0 25px rgba(0,0,0,0.25);
-            border-radius: 15px;
-            overflow: hidden;
-            width: 90vw;
-            
-        }
-        .cabecalho-card {
-            width: 100%;
-            background: #004aad;
-            color: #fff;
-            padding: 24px 0 16px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            border-top-left-radius: 18px;
-            border-top-right-radius: 18px;
-        }
-        .btn-voltar {
-            color: #fff;
-            font-size: 1.2rem;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            margin-left: 24px;
-            transition: color 0.2s;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: lightskyblue;
+}
 
-        .titulo-cabecalho {
-            flex: 1;
-            text-align: center;
-            font-size: 2rem;
-            font-weight: bold;
-            margin-right: 40px;
-        }
-        .conteudo-card {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            height: 100%;
-        }
-        .parte-botoes {
-            width: 320px;
-            background: #f8f9fa;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 0;
-            
-        }
-        .botao-dashboard {
-           width: 100%;
-            max-width: 250px;
-            padding: 20px 15px;
-            margin: 10px 0;
-            font-size: 16px;
-            border-radius: 12px;
-            background-color: #004aad;
-            color: white;
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .botao-dashboard:hover {
-            background: #0069d9;
-        }
-        .pedidos-area {
-            flex: 1;
-            padding: 40px 32px 32px 32px;
-            overflow-y: auto;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-        }
-        .pedidos-area h2 {
-            color: #004aad;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .linha {
-            border-bottom: 2px solid #004aad;
-            margin-bottom: 24px;
-        }
-        .cards-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .card-custom {
-            background: #fff;
-            border: 2px solid #004aad;
-            border-radius: 10px;
-            padding: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            min-width: 250px;
-        }
-        .card-custom h5 {
-            color: #004aad;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .card-custom p {
-            margin: 5px 0;
-        }
-        .card-custom strong {
-            color: #004aad;
-        }
-        .card-custom img {
-            max-width: 180px;
-            max-height: 180px;
-            border-radius: 10px;
-            margin: 10px 0;
-        }
-        .card-custom a {
-            display: block;
-            margin-top: 10px;
-            color: #004aad;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .card-custom a:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 900px) {
-            .card-central {
-                flex-direction: column;
-                align-items: center;
-                min-width: 90vw;
-            }
-            .conteudo-card {
-                flex-direction: column;
-            }
-            .parte-botoes {
-                width: 100%;
-                flex-direction: row;
-                justify-content: center;
-                gap: 12px;
-                padding: 20px 0;
-            }
-            .pedidos-area {
-                padding: 20px;
-            }
-        }
+.container-central {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    min-height: 90vh;
+    max-width: 1200px;
+    margin: 20px auto;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-central {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 90vh;
+}
+
+.cabecalho-card {
+    background: #004aad;
+    color: #fff;
+    /* menor espaçamento vertical para reduzir o espaço total */
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+    /* Empilha título e botão verticalmente */
+    position: relative;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 4px; /* reduzido */
+}
+
+/* botão Voltar posicionado abaixo do título, alinhado à esquerda */
+.btn-voltar {
+    color: #fff;
+    font-size: 1.2rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    z-index: 1;
+    transition: color 0.2s;
+    padding: 6px 10px;
+    border-radius: 6px;
+
+    /* alinhamento à esquerda igual imagem */
+    align-self: flex-start;
+    margin-left: 12px; /* menos margem */
+    margin-top: 6px;
+}
+
+/* título idêntico ao .logo do index, sempre 36px */
+.titulo-cabecalho {
+    display: block;
+    width: 100%;
+    font-size: 36px !important; /* força 36px */
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    color: #fff;
+    text-align: center;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0;
+}
+
+/* garantir que responsivo não reduza mais o título */
+@media (max-width: 900px) {
+    .container-central {
+        min-width: 90vw;
+    }
+    .conteudo-card {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+    .parte-botoes {
+        /* transformar em faixa rolável horizontal */
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* rolagem suave no iOS */
+        gap: 12px;
+        padding: 12px 16px; /* espaçamento interno compatível com o layout */
+        box-sizing: border-box;
+        width: 100%;
+        /* evita quebra forçada dos botões */
+        white-space: nowrap;
+    }
+    .parte-botoes::-webkit-scrollbar {
+        height: 8px;
+    }
+    .parte-botoes::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.15);
+        border-radius: 8px;
+    }
+
+    .parte-botoes .botao-dashboard {
+        /* cada botão mantém seu tamanho mínimo, não encolhe e permite scroll */
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0; /* o gap acima controla o espaçamento */
+        min-width: 200px; /* mantém botões grandes o suficiente para toque; ajuste se desejar */
+    }
+
+    .pedidos-area {
+        padding: 20px;
+    }
+
+    /* Novas regras para tocar o título em apenas uma linha no celular */
+    .cabecalho-card {
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-voltar {
+        margin-right: 8px; /* libera mais espaço para o título */
+    }
+    .titulo-cabecalho {
+        /* ajuste responsivo: mantém em uma só linha reduzindo um pouco o tamanho quando necessário */
+        font-size: 36px !important; /* força 36px */
+        white-space: nowrap;    /* impede quebra de linha */
+        overflow: hidden;
+        text-overflow: ellipsis; /* mostra "..." se necessário */
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    .titulo-cabecalho {
+        font-size: 36px !important; /* força 36px */
+    }
+}
+
+.conteudo-card {
+    display: flex;
+    flex: 1;
+    padding: 0;
+    gap: 0;
+    background: none;
+    height: 100%;
+}
+
+.parte-botoes {
+    flex: 1;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px 0 20px;
+    min-width: 250px;
+    box-sizing: border-box;
+}
+
+.botao-dashboard {
+    width: 100%;
+    max-width: 250px;
+    padding: 20px 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 12px;
+    background-color: #004aad;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao-dashboard i {
+    margin-right: 10px;
+    font-size: 18px;
+    min-width: 18px;
+    text-align: center;
+}
+
+.botao-dashboard:hover {
+    background-color: #0069d9;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.botao-dashboard:active {
+    transform: translateY(1px);
+}
+
+.pedidos-area {
+    flex: 2;
+    padding: 30px 20px;
+    background: white;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.pedidos-area h2 {
+    color: #004aad;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    border-bottom: 2px solid #004aad;
+    padding-bottom: 10px;
+    width: 100%;
+    text-align: left;
+    max-width: unset;
+}
+
+.linha {
+    display: none;
+}
+
+.cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: unset;
+    align-items: stretch;
+}
+
+.card-custom {
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    min-width: 250px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    max-width: unset;
+    margin: 15px 0;
+}
+
+.card-custom:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 5px;
+    background-color: #004aad;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.card-custom:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #004aad;
+}
+
+.card-custom h5 {
+    color: #004aad;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.card-custom p {
+    margin: 5px 0;
+}
+
+.card-custom strong {
+    color: #004aad;
+}
+
+.card-custom img {
+    max-width: 180px;
+    max-height: 180px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+.card-custom a {
+    display: block;
+    margin-top: 10px;
+    color: #004aad;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.card-custom a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+    .container-central {
+        min-width: 90vw;
+    }
+    .conteudo-card {
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+    }
+    .parte-botoes {
+        /* transformar em faixa rolável horizontal */
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* rolagem suave no iOS */
+        gap: 12px;
+        padding: 12px 16px; /* espaçamento interno compatível com o layout */
+        box-sizing: border-box;
+        width: 100%;
+        /* evita quebra forçada dos botões */
+        white-space: nowrap;
+    }
+    .parte-botoes::-webkit-scrollbar {
+        height: 8px;
+    }
+    .parte-botoes::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.15);
+        border-radius: 8px;
+    }
+
+    .parte-botoes .botao-dashboard {
+        /* cada botão mantém seu tamanho mínimo, não encolhe e permite scroll */
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0; /* o gap acima controla o espaçamento */
+        min-width: 200px; /* mantém botões grandes o suficiente para toque; ajuste se desejar */
+    }
+
+    .pedidos-area {
+        padding: 20px;
+    }
+
+    /* Novas regras para tocar o título em apenas uma linha no celular */
+    .cabecalho-card {
+        align-items: center;
+        gap: 8px;
+    }
+    .btn-voltar {
+        margin-right: 8px; /* libera mais espaço para o título */
+    }
+    .titulo-cabecalho {
+        /* ajuste responsivo: mantém em uma só linha reduzindo um pouco o tamanho quando necessário */
+        font-size: 36px !important; /* força 36px */
+        white-space: nowrap;    /* impede quebra de linha */
+        overflow: hidden;
+        text-overflow: ellipsis; /* mostra "..." se necessário */
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 420px) {
+    .titulo-cabecalho {
+        font-size: 36px !important; /* força 36px */
+    }
+}
+
+

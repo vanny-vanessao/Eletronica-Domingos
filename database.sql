@@ -1,67 +1,68 @@
-CREATE DATABASE EleDom;
-
+CREATE DATABASE IF NOT EXISTS EleDom;
 USE EleDom;
 
-CREATE TABLE Endereco (
-id integer primary key auto_increment not null,
-rua varchar(40) not null,
-numero integer,
-bairro varchar(40) not null,
-complemento varchar(20) not null,
-cidade varchar(40) not null,
-UF varchar(20) not null,
-CEP char(9) not null
+CREATE TABLE IF NOT EXISTS Endereco (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  rua VARCHAR(40) NOT NULL,
+  numero INTEGER,
+  bairro VARCHAR(40) NOT NULL,
+  complemento VARCHAR(20) NOT NULL,
+  cidade VARCHAR(40) NOT NULL,
+  UF VARCHAR(20) NOT NULL,
+  CEP CHAR(9) NOT NULL
 );
 
-CREATE TABLE Cliente (
-id integer primary key auto_increment not null,
-nome varchar(50) not null,
-fone varchar (15) not null,
-rg char(11) not null,
-cpf char(11) not null,
-obs varchar (100),
-id_endereco integer,
-foreign key (id_endereco) references Endereco (id)
+CREATE TABLE IF NOT EXISTS Cliente (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  fone VARCHAR(15) NOT NULL,
+  rg CHAR(12) NOT NULL,
+  cpf CHAR(14) NOT NULL,
+  obs VARCHAR(100),
+  id_endereco INTEGER,
+  FOREIGN KEY (id_endereco) REFERENCES Endereco (id)
 );
 
-CREATE TABLE Aparelho (
-id integer primary key auto_increment not null,
-nome varchar (50) not null,
-marca varchar (25) not null,
-cor varchar (20) not null,
-modelo varchar (40) not null,
-problema varchar (255) not null,
-garantia boolean,
-data_garantia date null,
-fotos varchar(255) null,
-tipo varchar (30) not null,
-acessorios varchar (50),
-obs varchar (100),
-id_cliente integer not null,
-foreign key (id_cliente) references Cliente (id)
+CREATE TABLE IF NOT EXISTS Aparelho (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  marca VARCHAR(25) NOT NULL,
+  cor VARCHAR(20) NOT NULL,
+  modelo VARCHAR(40) NOT NULL,
+  problema VARCHAR(255) NOT NULL,
+  garantia BOOLEAN,
+  data_garantia DATE NULL,
+  fotos VARCHAR(255) NULL,
+  tipo VARCHAR(30) NOT NULL,
+  acessorios VARCHAR(50),
+  obs VARCHAR(100),
+  id_cliente INTEGER NOT NULL,
+  FOREIGN KEY (id_cliente) REFERENCES Cliente (id)
 );
 
-CREATE TABLE Funcionario (
-id integer primary key auto_increment not null,
-nome varchar(50) not null,
-email varchar (50) not null unique,
-senha varchar (255) not null,
-usuario varchar (40) not null unique
+CREATE TABLE IF NOT EXISTS Funcionario (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  nome VARCHAR(50) NOT NULL,
+  email VARCHAR(50) NOT NULL UNIQUE,
+  senha VARCHAR(255) NOT NULL,
+  usuario VARCHAR(40) NOT NULL UNIQUE
 );
 
-CREATE TABLE Registro (
-id integer primary key auto_increment not null,
-data_registro timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-data_estimada date not null,
-data_entrega date,
-orcamento real not null,
-valor real,
-status_aparelho ENUM('Pendente','Concluído','Cancelado') NOT NULL DEFAULT 'Pendente',
-obs varchar(100),
-id_cliente integer not null,
-id_aparelho integer not null,
-id_endereco integer,
-foreign key (id_cliente) references Cliente (id),
-foreign key (id_aparelho) references Aparelho (id),
-foreign key (id_endereco) references Endereco (id)
+CREATE TABLE IF NOT EXISTS Registro (
+  id INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  data_registro TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  data_estimada DATE NOT NULL,
+  data_entrega DATE,
+  orcamento REAL NOT NULL,
+  valor REAL,
+  status_aparelho ENUM('Pendente','Concluído','Cancelado') NOT NULL DEFAULT 'Pendente',
+  obs VARCHAR(100),
+  id_cliente INTEGER NOT NULL,
+  id_aparelho INTEGER NOT NULL,
+  id_endereco INTEGER,
+  id_funcionario INTEGER,                    
+  FOREIGN KEY (id_cliente) REFERENCES Cliente (id),
+  FOREIGN KEY (id_aparelho) REFERENCES Aparelho (id),
+  FOREIGN KEY (id_endereco) REFERENCES Endereco (id),
+  FOREIGN KEY (id_funcionario) REFERENCES Funcionario (id)
 );

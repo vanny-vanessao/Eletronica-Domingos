@@ -27,13 +27,13 @@
                 <input type="text" class="form-control" name="nome" placeholder="Nome completo">
 
                 <p>CPF</p>
-                <input type="text" class="form-control" name="cpf" placeholder="CPF (somente números)" maxlength="11">
+                <input type="text" class="form-control" name="cpf" id="cpf" placeholder="CPF (somente números)" maxlength="14" inputmode="numeric">
 
                 <p>RG</p>
-                <input type="text" class="form-control" name="rg" placeholder="RG (somente números)">
+                <input type="text" class="form-control" name="rg" id="rg" placeholder="RG (somente números)" maxlength="12" inputmode="numeric">
 
                 <p>Telefone</p>
-                <input type="tel" class="form-control" name="fone" placeholder="Ex.: 48 912345678" maxlength="12">
+                <input type="text" class="form-control" name="fone" id="fone" placeholder="Ex.: 48 91234-5678" maxlength="15" inputmode="numeric">
 
                 <p>Observações</p>
                 <input type="text" class="form-control" name="obs" placeholder="Ex.: Rigoroso, exigente, etc..">
@@ -87,6 +87,54 @@
             const enderecoSection = document.getElementById("enderecoSection");
             enderecoSection.style.display = checkBox.checked ? "block" : "none";
         }
+
+        function onlyNumbers(e) {
+            let v = e.target.value.replace(/\D/g, '');
+            e.target.value = v;
+        }
+
+        function formatCPF(e) {
+            let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
+            else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
+            else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+            e.target.value = v;
+        }
+
+        function formatRG(e) {
+            let v = e.target.value.replace(/\D/g, '').slice(0, 9);
+            if (v.length > 7) v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{1,1})/, "$1.$2.$3-$4");
+            else if (v.length > 5) v = v.replace(/(\d{2})(\d{3})(\d{1,3})/, "$1.$2.$3");
+            else if (v.length > 2) v = v.replace(/(\d{2})(\d{1,3})/, "$1.$2");
+            e.target.value = v;
+        }
+
+        function formatFone(e) {
+            let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+            if (v.length > 6)
+                v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, "$1 $2-$3");
+            else if (v.length > 2)
+                v = v.replace(/(\d{2})(\d{1,5})/, "$1 $2");
+            e.target.value = v.trim();
+        }
+
+        // CPF
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', formatCPF);
+        cpfInput.addEventListener('keydown', onlyNumbers);
+        cpfInput.addEventListener('blur', formatCPF);
+
+        // RG
+        const rgInput = document.getElementById('rg');
+        rgInput.addEventListener('input', formatRG);
+        rgInput.addEventListener('keydown', onlyNumbers);
+        rgInput.addEventListener('blur', formatRG);
+
+        // Telefone
+        const foneInput = document.getElementById('fone');
+        foneInput.addEventListener('input', formatFone);
+        foneInput.addEventListener('keydown', onlyNumbers);
+        foneInput.addEventListener('blur', formatFone);
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
