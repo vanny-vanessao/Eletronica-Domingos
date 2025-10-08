@@ -1,15 +1,10 @@
-07/09/2025, 17:10
+08/10/2025, 16:45
 
-Fiz mudanças nos relacionamentos do banco de dados e agora tô tendo problemas no cadastro de ordem de serviço, por causa da tabela funcionário. Arrumei a disposição de dados na tela detalhes, aparentemente está funcionando (Com exceção de endereço que não tá aparecendo). Os botões ainda não são funcionais, então não tem mudança de status nem nada, tô pensando ainda em como ficaria melhor na hora de expor isso (pendente pra concluído tem que colocar valor final e data de entrega; pendente pra cancelado tô pensando se coloco alguma mensagem de "Tem certeza?" ou algo do tipo).
-
-PARTES DO DESENVOLVIMENTO:
-
-Cadastro, Login e Logout: funcionando;
-Tela Inicial: Todos os botões funcionando. Ainda não foi colocada a função de listar pendentes na tela inicial;
-Novo Conserto (Etapa 1/Cliente): Funcionando adequadamente nos testes;
-Novo Conserto (Etapa 2/Aparelho): Funcionando adequadamente nos testes;
-Novo Conserto (Etapa 3/Registro): Funcionando adequadamente nos testes, precisando dos ajustes mencionados anteriormente (trocar alguns campos de páginas e adicionar o timestamp);
-Consertos Pendentes: Funcionando adequadamente nos testes;
-  Detalhes: Exibição de dados nos campos funcionando exceto endereço, botões "Cancelar" e "Concluir" ainda não funcionais; 
-Consertos Concluídos: faltam pequenos ajustes no front e a lógica ainda não deu de ver sendo posta em prática, mas imagino que não vá dar problemas.
-Consertos Cancelados: a lógica ainda não deu de ver sendo posta em prática, mas imagino que não vá dar problemas.
+Minha nossa, acho que tá pronto, quase.
+As funções que a gente começou a desenvolver com o passar do ano foram terminadas hoje, por incrível que pareça: registro de três etapas, concluir e cancelar ordens, tudo funcionando, se direcionando pros lugares certos, eu fiz mais de uma vez e deu bom. 
+O problema maior ainda é que não fizemos a funcionalidade de editar ordem de serviço PENDENTE (concluídas e canceladas não dá mais pra mexer), o Léo disse que vai atrás disso. 
+Outro problema é em relação a proteção das rotas de sessão, que dá aqueles erros feios e travadas chatas que a gente viu em orientação, tem que resolver até o fim do mês pra direcionar pra tela de login sem avacalhar a página toda. 
+Outra coisinha que eu não sei se dá de resolver é sobre o registro em três etapas ser um tanto bagunçado, tipo, se eu cadastro os dados do cliente e sem querer pulo o endereço, se eu voltar pra fazer o endereço vai ficar todo perdido, desvinculado do cliente, daí fica um cliente voando no banco de dados e o usuário tendo que cadastrar o mesmo cliente repetido pro registro ficar certo, porque se não fica um cliente branco e um endereço sozinho sem dono com aparelho e registro (desgraçado né). 
+Tô pensando em voltar atrás e fazer todo o registro de ordem de serviço em uma única tela, pra evitar esse tipo de situação, mas não sei se seria retroceder muito em como a gente já esteve organizando. 
+Em teoria é fácil, no código seria sintetizar três funções em uma só maiorzona e fazer uma única tela no front, só não sei se seria bom na parte de usabilidade, já que é muita informação de quatro tipos pra cadastrar (cliente, endereço, aparelho e registro). 
+Mas escrevendo isso sinceramente não sei se muda muita coisa, talvez nem faça diferença e facilite a minha vida, mas vamos vendo.

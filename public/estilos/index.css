@@ -75,11 +75,11 @@
       }
 
       .botao-dashboard i {
-  margin-right: 10px;
-  font-size: 18px;
-  min-width: 18px; /* Garante alinhamento */
-  text-align: center;
-}
+        margin-right: 10px;
+        font-size: 18px;
+        min-width: 18px; /* Garante alinhamento */
+        text-align: center;
+      }
 
       .botao-dashboard:hover {
         background-color: #0069d9;

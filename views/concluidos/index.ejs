@@ -3,58 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eletrônica Domingos - Ordens Concluídas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/estilos/concluidos.css">
+    <title>Eletrônica Domingos - Ordens Pendentes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/estilos/pendentes.css">
 </head>
 <body>
-    
-    <div class="principal">
-        <div class="cabecalho">
-            <h1 class="logo">Eletrônica Domingos</h1>
-            <a href="/inicial" class="btn-voltar">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </a>
-        </div>
-
-        <div class="container-fluid">
-            <div class="parte-botoes">
-                <button class="botao-dashboard">
-                    <i class="fas fa-plus-circle"></i><a href="/pendentes/novo-cliente">Novo Conserto</a>
-                </button>
-                <button class="botao-dashboard">
-                    <i class="fas fa-clock"></i><a href="/pendentes">Consertos Pendentes</a>
-                </button>
-                <button class="botao-dashboard">
-                    <i class="fas fa-check-circle"></i><a href="/concluidos">Consertos Concluídos</a>
-                </button>
-                <button class="botao-dashboard">
-                    <i class="fas fa-ban"></i><a href="/cancelados">Consertos Cancelados</a>
-                </button>
+    <div class="container-central">
+        <div class="card-central">
+            <div class="cabecalho-card">
+                <div class="titulo-cabecalho">
+                    Eletrônica Domingos
+                </div>
+                <a class="btn-voltar" href="/inicial"><i class="fas fa-arrow-left"></i> Voltar</a>
             </div>
-        </div>
-            <div class="row">
-                <% if (ordens.length > 0) { %>
-                <% ordens.forEach(o => { %>
-                    <div class="col-md-4 mb-4">
-                    <div class="card order-card" onclick="window.location='/ordens/<%= o.id %>'">
-                        <div class="card-body">
-                        <h5 class="card-title"><%= o.cliente_nome %></h5>
-                        <p class="card-text">
-                            <strong>Aparelho:</strong> <%= o.aparelho_nome %> <br>
-                            <strong>Problema:</strong> <%= o.aparelho_problema %> <br>
-                            <strong>Marca:</strong> <%= o.aparelho_marca %> <br>
-                            <strong>Status:</strong> <span class="badge bg-warning text-dark"><%= o.status_aparelho %></span> <br>
-                            <small class="text-muted">Registrado em: <%= o.data_registro %></small>
-                        </p>
-                        </div>
+            <div class="conteudo-card">
+                <div class="parte-botoes">
+                    <a class="botao-dashboard" href="/pendentes/novo-cliente"><i class="fas fa-plus-circle"></i> Novo Conserto</a>
+                    <a class="botao-dashboard" href="/pendentes"><i class="fas fa-clock"></i> Consertos Pendentes</a>
+                    <a class="botao-dashboard" href="/concluidos"><i class="fas fa-check-circle"></i> Consertos concluídos</a>
+                    <a class="botao-dashboard" href="/cancelados"><i class="fas fa-ban"></i> Consertos Cancelados</a>
+                   
+                </div>
+                <div class="pedidos-area">
+                    <h2><i class="fas fa-exclamation-triangle"></i> Concluídos</h2>
+                    <div class="linha"></div>
+                    <div class="cards-list">
+                        <% if (ordens.length > 0) { %>
+                            <% ordens.forEach(o => { %>
+                                <div class="card-custom">
+                                    <h5><%= o.data_registro.toLocaleDateString("pt-BR") %></h5>
+                                    <p><strong>Cliente:</strong> <%= o.cliente_nome %></p>
+                                    <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
+                                    <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
+                                    <% if (o.aparelho_fotos) { %>
+                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho">
+                                    <% } %>
+                                    <a href="/concluidos/detalhes/<%= o.id %>">Clique para ver detalhes</a>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <p>Nenhuma ordem concluída encontrada</p>
+                        <% } %>
                     </div>
-                    </div>
-                <% }) %>
-                <% } else { %>
-                <p class="text-center">Nenhuma ordem pendente encontrada</p>
-                <% } %>
+                </div>
             </div>
         </div>
     </div>

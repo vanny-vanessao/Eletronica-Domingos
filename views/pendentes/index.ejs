@@ -25,7 +25,7 @@
                    
                 </div>
                 <div class="pedidos-area">
-                    <h2><i class="fas fa-exclamation-triangle"></i> Principais Pendentes</h2>
+                    <h2><i class="fas fa-exclamation-triangle"></i> Pendentes</h2>
                     <div class="linha"></div>
                     <div class="cards-list">
                         <% if (ordens.length > 0) { %>
@@ -36,7 +36,7 @@
                                     <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
                                     <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
                                     <% if (o.aparelho_fotos) { %>
-                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho"> <!--ta vindo null-->
+                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho"> 
                                     <% } %>
                                     <a href="/pendentes/detalhes/<%= o.id %>">Clique para ver detalhes</a>
                                 </div>

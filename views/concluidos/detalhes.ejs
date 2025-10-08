@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eletrônica Domingos - Detalhes da Ordem</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/estilos/detalhes.css">
+</head>
+<body>
+    <div class="container-central">
+        <div class="card-central">
+            <div class="cabecalho-card">
+                <a class="btn-voltar" href="/concluidos"><i class="fas fa-arrow-left"></i> Voltar</a>
+                <div class="titulo-cabecalho">Detalhes da Ordem Concluída / ID: <%= ordem.id %></div>
+            </div>
+                <div class="pedidos-area">
+                    <div class="detalhes-card">
+                        <h4>Data de Registro: <%= ordem.data_registro.toLocaleDateString("pt-BR") %></h4><br>
+
+                        <h4>Informações do Cliente</h4>
+                       
+                        <p><strong>Nome:</strong> <%= ordem.cliente_nome %></p>
+                        <p><strong>Contato:</strong> <%= ordem.cliente_fone %></p>
+                        <p><strong>RG:</strong> <%= ordem.cliente_rg %></p>
+                        <p><strong>CPF:</strong> <%= ordem.cliente_cpf %></p>
+                        <p><strong>Observações:</strong> <%= ordem.cliente_obs || "Nenhuma observação" %></p>
+                        <br>
+
+                        <h4>Endereço do Cliente</h4>
+
+                        <% if (ordem.id_endereco) { %>
+                            <p><strong>Rua:</strong> <%= ordem.endereco_rua %></p>
+                            <p><strong>Número:</strong> <%= ordem.endereco_numero %></p>
+                            <p><strong>Bairro:</strong> <%= ordem.endereco_bairro %></p>
+                            <p><strong>Complemento:</strong> <%= ordem.endereco_complemento %></p>
+                            <p><strong>Cidade:</strong> <%= ordem.endereco_cidade %></p>
+                            <p><strong>UF:</strong> <%= ordem.endereco_uf %></p>
+                            <p><strong>CEP:</strong> <%= ordem.endereco_cep %></p>
+                        <% } else { %> <strong>Endereço não fornecido</strong> <% } %>
+                        <br>
+
+                        <h4>Informações do Aparelho</h4>
+
+                        <p><strong>Nome:</strong> <%= ordem.aparelho_nome %></p>
+                        <p><strong>Problema:</strong> <%= ordem.aparelho_problema %></p> 
+                        <p><strong>Tipo:</strong> <%= ordem.aparelho_tipo %></p> 
+                        <p><strong>Modelo:</strong> <%= ordem.aparelho_modelo %></p>
+                        <p><strong>Marca:</strong> <%= ordem.aparelho_marca %></p>
+                        <p><strong>Cor:</strong> <%= ordem.aparelho_cor %></p> 
+                        <p><strong>Garantia:</strong> 
+                        <%= ordem.aparelho_data_garantia ? ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") : "Sem Garantia" %></p> 
+                        <p><strong>Acessórios:</strong> <%= ordem.aparelho_acessorios || "Nenhum acessório" %></p> 
+                        <p><strong>Observações:</strong> <%= ordem.aparelho_obs || "Nenhuma observação" %></p>
+                        <% if (ordem.aparelho_fotos) { %>
+                            <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
+                        <% } %>
+                        <br>
+
+                        <h4>Informações de Registro</h4>
+
+                        <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
+                        <p><strong>Data de Entrega:</strong> <%= ordem.data_entrega ? ordem.data_entrega.toLocaleDateString("pt-BR") : "Não informada" %></p>
+                        <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
+                        <p><strong>Valor Final:</strong> R$ <%= ordem.valor %></p>
+                        <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
+                        <p><strong>Registrado por:</strong> <%= ordem.funcionario_nome %></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

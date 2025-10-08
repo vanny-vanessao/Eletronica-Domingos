@@ -69,9 +69,10 @@
                     <p>Fotos</p>
                 </div>
                 <div class="form-group">
-                    <input type="file" class="form-control" name="fotos" multiple>
+                    <input type="file" class="form-control" name="fotos" id="fotos" multiple>
+                    <button type="button" onclick="removerFoto()">Remover Foto</button>
                 </div>
-
+                <br>
                 <div class="section-title">
                     <p>Informações de Garantia</p>
                 </div>
@@ -136,6 +137,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("dataGarantia").style.display = "none";
         });
+
+        function removerFoto() {
+            const campoFotos = document.getElementById('fotos');
+            campoFotos.value = ""; // Limpa o valor do campo de arquivo
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

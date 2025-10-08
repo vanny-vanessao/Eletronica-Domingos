@@ -65,14 +65,31 @@
           <h2>
             <i class="fas fa-exclamation-triangle"></i> Principais Pendentes
           </h2>
-          <div id="lista"></div>
+          
+          <div class="pedidos-area"></div>
+            <div class="cards-list">
+              <% if (ordens.length > 0) { %>
+                <% ordens.forEach(o => { %>
+                  <div class="card-custom">
+                    <h5><%= o.data_registro.toLocaleDateString("pt-BR") %></h5>
+                    <p><strong>Cliente:</strong> <%= o.cliente_nome %></p>
+                    <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
+                    <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
+                    <% if (o.aparelho_fotos) { %>
+                      <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho"> 
+                    <% } %>
+                    <a href="/pendentes/detalhes/<%= o.id %>">Clique para ver detalhes</a>
+                  </div>
+                <% }) %>
+                  <% } else { %>
+                    <p>Nenhuma ordem pendente encontrada</p>
+                  <% } %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      window.onload = renderizarCartoesPendentes;
-    </script>
   </body>
 </html>

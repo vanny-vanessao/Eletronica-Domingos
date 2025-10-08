@@ -12,7 +12,7 @@
         <div class="card-central">
             <div class="cabecalho-card">
                 <a class="btn-voltar" href="/pendentes"><i class="fas fa-arrow-left"></i> Voltar</a>
-                <div class="titulo-cabecalho">Detalhes da Ordem</div>
+                <div class="titulo-cabecalho">Detalhes da Ordem Pendente / ID: <%= ordem.id %></div>
             </div>
                 <div class="pedidos-area">
                     <div class="detalhes-card">
@@ -62,15 +62,15 @@
                         <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
                         <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
                         <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
-                        <p><strong>Cadastrado por:</strong> <%= ordem.funcionario_nome %></p>
+                        <p><strong>Registrado por:</strong> <%= ordem.funcionario_nome %></p>
 
                         <div class="btn-actions">
                             <form action="" method="POST">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#concluirModal" data-id="<%= ordem.id_ordem %>">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#concluirModal" data-id="<%= ordem.id %>">
                                 Concluir
                                 </button>
                             </form>
-                            <button type="button" class="btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal" data-id="<%= ordem.id_ordem %>">
+                            <button type="button" class="btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal" data-id="<%= ordem.id %>">
                                 Cancelar
                             </button>
                         </div>
