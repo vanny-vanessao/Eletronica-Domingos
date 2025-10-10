@@ -1,4 +1,4 @@
- body {
+body {
             margin: 0;
             min-height: 100vh;
             background: #87cefa;
@@ -150,4 +150,18 @@
         }
         .btn-danger:hover {
             background: #c82333;
+        }
+        .top-actions { margin-bottom: 8px; }
+
+        #editForm {
+            background: #fff;
+            border: 1px solid #e6e6e6;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        }
+
+        /* responsivo: form ocupa 100% em mobile */
+        @media (max-width: 600px) {
+            #editForm { padding: 10px; }
         }

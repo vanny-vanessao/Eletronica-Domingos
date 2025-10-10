@@ -14,66 +14,176 @@
                 <a class="btn-voltar" href="/pendentes"><i class="fas fa-arrow-left"></i> Voltar</a>
                 <div class="titulo-cabecalho">Detalhes da Ordem Pendente / ID: <%= ordem.id %></div>
             </div>
-                <div class="pedidos-area">
-                    <div class="detalhes-card">
-                        <h4>Data de Registro: <%= ordem.data_registro.toLocaleDateString("pt-BR") %></h4><br>
 
-                        <h4>Informações do Cliente</h4>
-                       
-                        <p><strong>Nome:</strong> <%= ordem.cliente_nome %></p>
-                        <p><strong>Contato:</strong> <%= ordem.cliente_fone %></p>
-                        <p><strong>RG:</strong> <%= ordem.cliente_rg %></p>
-                        <p><strong>CPF:</strong> <%= ordem.cliente_cpf %></p>
-                        <p><strong>Observações:</strong> <%= ordem.cliente_obs || "Nenhuma observação" %></p>
-                        <br>
+            <!-- AÇÃO: botão Editar (fica abaixo do cabeçalho, alinhado à direita) -->
+            <div class="pedidos-area">
+                <div class="top-actions" style="width:100%; display:flex; justify-content:flex-end; margin-bottom:8px;">
+                    <button id="editToggle" class="btn btn-primary">Editar</button>
+                </div>
 
-                        <h4>Endereço do Cliente</h4>
+                <!-- Formulário de edição oculto por padrão -->
+                <form id="editForm" action="/pendentes/editar/<%= ordem.id %>" method="POST" style="display:none; margin-bottom:16px;">
+                    <!-- ids importantes para atualizar as tabelas corretas -->
+                    <input type="hidden" name="id_cliente" value="<%= ordem.id_cliente %>">
+                    <input type="hidden" name="id_aparelho" value="<%= ordem.id_aparelho %>">
+                    <input type="hidden" name="id_endereco" value="<%= ordem.id_endereco || '' %>">
 
-                        <% if (ordem.id_endereco) { %>
-                            <p><strong>Rua:</strong> <%= ordem.endereco_rua %></p>
-                            <p><strong>Número:</strong> <%= ordem.endereco_numero %></p>
-                            <p><strong>Bairro:</strong> <%= ordem.endereco_bairro %></p>
-                            <p><strong>Complemento:</strong> <%= ordem.endereco_complemento %></p>
-                            <p><strong>Cidade:</strong> <%= ordem.endereco_cidade %></p>
-                            <p><strong>UF:</strong> <%= ordem.endereco_uf %></p>
-                            <p><strong>CEP:</strong> <%= ordem.endereco_cep %></p>
-                        <% } else { %> <strong>Endereço não fornecido</strong> <% } %>
-                        <br>
+                    <!-- Cliente -->
+                    <h5>Editar Cliente</h5>
+                    <div class="mb-2">
+                        <label class="form-label">Nome</label>
+                        <input class="form-control" name="nome" value="<%= ordem.cliente_nome %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Telefone</label>
+                        <input id="edit_fone" class="form-control" name="fone" value="<%= ordem.cliente_fone %>" maxlength="15" inputmode="numeric" placeholder="Ex.: 48 91234-5678">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">RG</label>
+                        <input id="edit_rg" class="form-control" name="rg" value="<%= ordem.cliente_rg %>" maxlength="12" inputmode="numeric" placeholder="Ex.: 12.345.678-9">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">CPF</label>
+                        <input id="edit_cpf" class="form-control" name="cpf" value="<%= ordem.cliente_cpf %>" maxlength="14" inputmode="numeric" placeholder="Ex.: 123.456.789-00">
+                    </div>
 
-                        <h4>Informações do Aparelho</h4>
+                    <!-- Endereço -->
+                    <h5>Endereço</h5>
+                    <div class="mb-2">
+                        <label class="form-label">Rua</label>
+                        <input class="form-control" name="end_rua" value="<%= ordem.endereco_rua || '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Número</label>
+                        <input class="form-control" name="end_numero" value="<%= ordem.endereco_numero || '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Bairro</label>
+                        <input class="form-control" name="end_bairro" value="<%= ordem.endereco_bairro || '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Cidade</label>
+                        <input class="form-control" name="end_cidade" value="<%= ordem.endereco_cidade || '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">UF</label>
+                        <input class="form-control" name="end_uf" value="<%= ordem.endereco_uf || '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">CEP</label>
+                        <input class="form-control" name="end_cep" value="<%= ordem.endereco_cep || '' %>">
+                    </div>
 
-                        <p><strong>Nome:</strong> <%= ordem.aparelho_nome %></p>
-                        <p><strong>Problema:</strong> <%= ordem.aparelho_problema %></p> 
-                        <p><strong>Tipo:</strong> <%= ordem.aparelho_tipo %></p> 
-                        <p><strong>Modelo:</strong> <%= ordem.aparelho_modelo %></p>
-                        <p><strong>Marca:</strong> <%= ordem.aparelho_marca %></p>
-                        <p><strong>Cor:</strong> <%= ordem.aparelho_cor %></p> 
-                        <p><strong>Garantia:</strong> 
-                        <%= ordem.aparelho_data_garantia ? ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") : "Sem Garantia" %></p> 
-                        <p><strong>Acessórios:</strong> <%= ordem.aparelho_acessorios || "Nenhum acessório" %></p> 
-                        <p><strong>Observações:</strong> <%= ordem.aparelho_obs || "Nenhuma observação" %></p>
-                        <% if (ordem.aparelho_fotos) { %>
-                            <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
-                        <% } %>
-                        <br>
+                    <!-- Aparelho -->
+                    <h5>Informações do Aparelho</h5>
+                    <div class="mb-2">
+                        <label class="form-label">Nome</label>
+                        <input class="form-control" name="aparelho_nome" value="<%= ordem.aparelho_nome %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Problema</label>
+                        <input class="form-control" name="aparelho_problema" value="<%= ordem.aparelho_problema %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Marca</label>
+                        <input class="form-control" name="aparelho_marca" value="<%= ordem.aparelho_marca %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Modelo</label>
+                        <input class="form-control" name="aparelho_modelo" value="<%= ordem.aparelho_modelo %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Cor</label>
+                        <input class="form-control" name="aparelho_cor" value="<%= ordem.aparelho_cor %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Data Garantia</label>
+                        <input type="date" class="form-control" name="aparelho_data_garantia" value="<%= ordem.aparelho_data_garantia ? ordem.aparelho_data_garantia.toISOString().slice(0,10) : '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Acessórios</label>
+                        <input class="form-control" name="aparelho_acessorios" value="<%= ordem.aparelho_acessorios || '' %>">
+                    </div>
 
-                        <h4>Informações de Registro</h4>
+                    <!-- Registro -->
+                    <h5>Informações do Registro</h5>
+                    <div class="mb-2">
+                        <label class="form-label">Data Estimada</label>
+                        <input type="date" class="form-control" name="data_estimada" value="<%= ordem.data_estimada ? ordem.data_estimada.toISOString().slice(0,10) : '' %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Orçamento</label>
+                        <input type="number" step="0.01" class="form-control" name="orcamento" value="<%= ordem.orcamento %>">
+                    </div>
+                    <div class="mb-2">
+                        <label class="form-label">Observações</label>
+                        <textarea class="form-control" name="obs"><%= ordem.obs || '' %></textarea>
+                    </div>
 
-                        <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
-                        <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
-                        <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
-                        <p><strong>Registrado por:</strong> <%= ordem.funcionario_nome %></p>
+                    <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:8px;">
+                        <button type="button" id="cancelEdit" class="btn btn-light">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
 
-                        <div class="btn-actions">
-                            <form action="" method="POST">
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#concluirModal" data-id="<%= ordem.id %>">
-                                Concluir
-                                </button>
-                            </form>
-                            <button type="button" class="btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal" data-id="<%= ordem.id %>">
-                                Cancelar
+                <div class="detalhes-card">
+                    <h4>Data de Registro: <%= ordem.data_registro.toLocaleDateString("pt-BR") %></h4><br>
+
+                    <h4>Informações do Cliente</h4>
+                   
+                    <p><strong>Nome:</strong> <%= ordem.cliente_nome %></p>
+                    <p><strong>Contato:</strong> <%= ordem.cliente_fone %></p>
+                    <p><strong>RG:</strong> <%= ordem.cliente_rg %></p>
+                    <p><strong>CPF:</strong> <%= ordem.cliente_cpf %></p>
+                    <p><strong>Observações:</strong> <%= ordem.cliente_obs || "Nenhuma observação" %></p>
+                    <br>
+
+                    <h4>Endereço do Cliente</h4>
+
+                    <% if (ordem.id_endereco) { %>
+                        <p><strong>Rua:</strong> <%= ordem.endereco_rua %></p>
+                        <p><strong>Número:</strong> <%= ordem.endereco_numero %></p>
+                        <p><strong>Bairro:</strong> <%= ordem.endereco_bairro %></p>
+                        <p><strong>Complemento:</strong> <%= ordem.endereco_complemento %></p>
+                        <p><strong>Cidade:</strong> <%= ordem.endereco_cidade %></p>
+                        <p><strong>UF:</strong> <%= ordem.endereco_uf %></p>
+                        <p><strong>CEP:</strong> <%= ordem.endereco_cep %></p>
+                    <% } else { %> <strong>Endereço não fornecido</strong> <% } %>
+                    <br>
+
+                    <h4>Informações do Aparelho</h4>
+
+                    <p><strong>Nome:</strong> <%= ordem.aparelho_nome %></p>
+                    <p><strong>Problema:</strong> <%= ordem.aparelho_problema %></p> 
+                    <p><strong>Tipo:</strong> <%= ordem.aparelho_tipo %></p> 
+                    <p><strong>Modelo:</strong> <%= ordem.aparelho_modelo %></p>
+                    <p><strong>Marca:</strong> <%= ordem.aparelho_marca %></p>
+                    <p><strong>Cor:</strong> <%= ordem.aparelho_cor %></p> 
+                    <p><strong>Garantia:</strong> 
+                    <%= ordem.aparelho_data_garantia ? ordem.aparelho_data_garantia.toLocaleDateString("pt-BR") : "Sem Garantia" %></p> 
+                    <p><strong>Acessórios:</strong> <%= ordem.aparelho_acessorios || "Nenhum acessório" %></p> 
+                    <p><strong>Observações:</strong> <%= ordem.aparelho_obs || "Nenhuma observação" %></p>
+                    <% if (ordem.aparelho_fotos) { %>
+                        <p><strong>Foto:</strong></p><img src="<%= ordem.aparelho_fotos %>" alt="Foto do aparelho">
+                    <% } %>
+                    <br>
+
+                    <h4>Informações de Registro</h4>
+
+                    <p><strong>Data Estimada:</strong> <%= ordem.data_estimada.toLocaleDateString("pt-BR") %></p>
+                    <p><strong>Orçamento:</strong> R$ <%= ordem.orcamento %></p>
+                    <p><strong>Observações:</strong> <%= ordem.obs || "Nenhuma observação" %></p>
+                    <p><strong>Registrado por:</strong> <%= ordem.funcionario_nome %></p>
+
+                    <div class="btn-actions">
+                        <form action="" method="POST">
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#concluirModal" data-id="<%= ordem.id %>">
+                            Concluir
                             </button>
-                        </div>
+                        </form>
+                        <button type="button" class="btn-danger" data-bs-toggle="modal" data-bs-target="#cancelarModal" data-id="<%= ordem.id %>">
+                            Cancelar
+                        </button>
                     </div>
                 </div>
             </div>
@@ -151,5 +261,70 @@
         });
     </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Toggle edição inline no detalhes
+    const editToggle = document.getElementById('editToggle');
+    const editForm = document.getElementById('editForm');
+    const cancelEdit = document.getElementById('cancelEdit');
+
+    if (editToggle) {
+        editToggle.addEventListener('click', () => {
+            editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+            // rolar para o formulário em screens menores
+            if (editForm.style.display === 'block') editForm.scrollIntoView({behavior:'smooth'});
+        });
+    }
+    if (cancelEdit) {
+        cancelEdit.addEventListener('click', () => {
+            editForm.style.display = 'none';
+        });
+    }
+</script>
+
+<!-- formatação CPF / RG / Telefone para o formulário de edição -->
+<script>
+(function(){
+  function formatCPFValue(v){
+    v = v.replace(/\D/g,'').slice(0,11);
+    if (v.length > 9) v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/,"$1.$2.$3-$4");
+    else if (v.length > 6) v = v.replace(/(\d{3})(\d{3})(\d{1,3})/,"$1.$2.$3");
+    else if (v.length > 3) v = v.replace(/(\d{3})(\d{1,3})/,"$1.$2");
+    return v;
+  }
+  function formatRGValue(v){
+    v = v.replace(/\D/g,'').slice(0,9);
+    if (v.length > 7) v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/,"$1.$2.$3-$4");
+    else if (v.length > 5) v = v.replace(/(\d{2})(\d{3})(\d{1,3})/,"$1.$2.$3");
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{1,3})/,"$1.$2");
+    return v;
+  }
+  function formatFoneValue(v){
+    v = v.replace(/\D/g,'').slice(0,11);
+    if (v.length > 6) v = v.replace(/(\d{2})(\d{5})(\d{0,4})/,"$1 $2-$3");
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{1,5})/,"$1 $2");
+    return v.trim();
+  }
+
+  function attachFormatter(id, formatter){
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', function(e){
+      var pos = el.selectionStart;
+      var old = el.value;
+      el.value = formatter(el.value);
+      // tentar manter cursor próximo (simples)
+      if (el.value.length > old.length) el.selectionStart = el.selectionEnd = pos + (el.value.length - old.length);
+      else el.selectionStart = el.selectionEnd = pos;
+    });
+    el.addEventListener('blur', function(e){
+      el.value = formatter(el.value);
+    });
+  }
+
+  attachFormatter('edit_cpf', formatCPFValue);
+  attachFormatter('edit_rg', formatRGValue);
+  attachFormatter('edit_fone', formatFoneValue);
+})();
+</script>
 </body>
 </html>

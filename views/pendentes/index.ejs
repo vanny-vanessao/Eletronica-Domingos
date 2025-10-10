@@ -28,15 +28,28 @@
                     <h2><i class="fas fa-exclamation-triangle"></i> Pendentes</h2>
                     <div class="linha"></div>
                     <div class="cards-list">
-                        <% if (ordens.length > 0) { %>
-                            <% ordens.forEach(o => { %>
+                        <% 
+                            // garante ordens como array
+                            const all = Array.isArray(ordens) ? ordens.slice() : [];
+                            // ordena por data_registro crescente (mais antigas primeiro)
+                            all.sort((a,b) => {
+                                const da = new Date(a.data_registro);
+                                const db = new Date(b.data_registro);
+                                return da - db;
+                            });
+                            // pega até 3 primeiros
+                            const pedidos = all.slice(0,3);
+                        %>
+
+                        <% if (pedidos.length > 0) { %>
+                            <% pedidos.forEach(o => { %>
                                 <div class="card-custom">
-                                    <h5><%= o.data_registro.toLocaleDateString("pt-BR") %></h5>
+                                    <h5><%= new Date(o.data_registro).toLocaleDateString("pt-BR") %></h5>
                                     <p><strong>Cliente:</strong> <%= o.cliente_nome %></p>
                                     <p><strong>Aparelho:</strong> <%= o.aparelho_nome %></p>
                                     <p><strong>Problema:</strong> <%= o.aparelho_problema %></p>
                                     <% if (o.aparelho_fotos) { %>
-                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho"> 
+                                        <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho">
                                     <% } %>
                                     <a href="/pendentes/detalhes/<%= o.id %>">Clique para ver detalhes</a>
                                 </div>
