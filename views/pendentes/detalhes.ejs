@@ -113,7 +113,10 @@
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Orçamento</label>
-                        <input type="number" step="0.01" class="form-control" name="orcamento" value="<%= ordem.orcamento %>">
+                        <div class="input-with-currency" style="position:relative;">
+                            <span class="currency-prefix" aria-hidden="true" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#444; font-weight:600;">R$</span>
+                            <input type="number" step="0.01" class="form-control" name="orcamento" value="<%= ordem.orcamento %>" style="padding-left:48px;">
+                        </div>
                     </div>
                     <div class="mb-2">
                         <label class="form-label">Observações</label>
@@ -204,7 +207,10 @@
                         <input type="hidden" name="id_ordem" id="idOrdemInput">
                         <div class="mb-3">
                             <label for="valor" class="form-label">Valor Final</label>
-                            <input type="number" class="form-control" name="valor" id="valor" required>
+                            <div class="input-with-currency" style="position:relative;">
+                                <span class="currency-prefix" aria-hidden="true" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#444; font-weight:600;">R$</span>
+                                <input type="number" class="form-control" name="valor" id="valor" required style="padding-left:48px;">
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="data_entrega" class="form-label">Data de Entrega</label>
@@ -324,6 +330,25 @@
   attachFormatter('edit_cpf', formatCPFValue);
   attachFormatter('edit_rg', formatRGValue);
   attachFormatter('edit_fone', formatFoneValue);
+})();
+</script>
+
+<script>
+/* filepath: c:\tcc\Eletronica-Domingos\Eletronica-Domingos\views\pendentes\detalhes.ejs */
+(function(){
+  try {
+    const btn = document.querySelector('.btn-voltar');
+    if (!btn) return;
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get('from');
+    if (from === 'inicial') {
+      btn.setAttribute('href','/inicial');
+    } else {
+      btn.setAttribute('href','/pendentes');
+    }
+  } catch(e) {
+    // ignore
+  }
 })();
 </script>
 </body>

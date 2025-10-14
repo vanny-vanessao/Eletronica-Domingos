@@ -1,4 +1,4 @@
- body {
+body {
             margin: 0;
             min-height: 100vh;
             background-color: lightskyblue;
@@ -43,7 +43,15 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .parte-botoes .dropdown {
+            margin-top: 100px;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 250px;
+            align-self: center;
         }
 
         .parte-canceladas {
@@ -134,8 +142,65 @@
             transition: color 0.2s;
         }
 
+        /* Se os cards de cancelados usarem .card-custom ou .quadro-pendente, alinhar imagem à direita */
+.quadro-pendente,
+.card-custom {
+    display: block;
+    position: relative;
+    padding-right: 210px;
+}
+
+.quadro-pendente img,
+.card-custom img {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .quadro-pendente,
+    .card-custom {
+        padding-right: 20px;
+    }
+    .quadro-pendente img,
+    .card-custom img {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 10px auto 0;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
         @media (max-width: 768px) {
             .container-fluid {
                 flex-direction: column;
             }
         }
+
+@media (max-width: 900px) {
+    .parte-botoes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        overflow-x: auto;
+    }
+
+    .parte-botoes .dropdown {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        align-self: center !important;
+        display: inline-flex;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 250px;
+    }
+}

@@ -22,27 +22,37 @@
                     <a class="botao-dashboard" href="/pendentes"><i class="fas fa-clock"></i> Consertos Pendentes</a>
                     <a class="botao-dashboard" href="/concluidos"><i class="fas fa-check-circle"></i> Consertos concluídos</a>
                     <a class="botao-dashboard" href="/cancelados"><i class="fas fa-ban"></i> Consertos Cancelados</a>
-                   
+
+                    
+                    <div class="dropdown">
+                      <button
+                        class="btn botao-dashboard dropdown-toggle"
+                        type="button"
+                        id="dropdownUser"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-user"></i> <%= usuario ? usuario.nome : 'Usuário' %>
+                      </button>
+                      <ul
+              class="dropdown-menu"
+              aria-labelledby="dropdownUser"
+              style="width: 100%"
+            >
+              <li>
+                <a class="dropdown-item dropdown-sair" href="/logout">
+                  <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+              </li>
+            </ul>
+                    </div>
                 </div>
                 <div class="pedidos-area">
                     <h2><i class="fas fa-exclamation-triangle"></i> Pendentes</h2>
                     <div class="linha"></div>
                     <div class="cards-list">
-                        <% 
-                            // garante ordens como array
-                            const all = Array.isArray(ordens) ? ordens.slice() : [];
-                            // ordena por data_registro crescente (mais antigas primeiro)
-                            all.sort((a,b) => {
-                                const da = new Date(a.data_registro);
-                                const db = new Date(b.data_registro);
-                                return da - db;
-                            });
-                            // pega até 3 primeiros
-                            const pedidos = all.slice(0,3);
-                        %>
-
-                        <% if (pedidos.length > 0) { %>
-                            <% pedidos.forEach(o => { %>
+                       <% if (ordens.length > 0) { %>
+                            <% ordens.forEach(o => { %>
                                 <div class="card-custom">
                                     <h5><%= new Date(o.data_registro).toLocaleDateString("pt-BR") %></h5>
                                     <p><strong>Cliente:</strong> <%= o.cliente_nome %></p>
@@ -51,7 +61,7 @@
                                     <% if (o.aparelho_fotos) { %>
                                         <img src="<%= o.aparelho_fotos %>" alt="Foto do aparelho">
                                     <% } %>
-                                    <a href="/pendentes/detalhes/<%= o.id %>">Clique para ver detalhes</a>
+                                   <a href="/pendentes/detalhes/<%= o.id %>?from=pendentes">Clique para ver detalhes</a>
                                 </div>
                             <% }) %>
                         <% } else { %>
@@ -63,4 +73,42 @@
         </div>
     </div>
 </body>
+
+<!-- adicionar bootstrap bundle e inicialização/fallback do dropdown -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function(){
+    // se o Bootstrap estiver disponível, inicializa os dropdowns oficialmente
+    if (window.bootstrap && bootstrap.Dropdown) {
+      document.querySelectorAll('.dropdown-toggle').forEach(function(el){
+        // evita re-instanciar se já houver sido instanciado pelo bundle
+        try { new bootstrap.Dropdown(el); } catch(e) { /* ignore */ }
+      });
+      return;
+    }
+
+    // Fallback simples quando Bootstrap não estiver presente:
+    document.querySelectorAll('.dropdown-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var menu = btn.nextElementSibling;
+        if (!menu) return;
+        var shown = menu.classList.toggle('show');
+        menu.style.display = shown ? 'block' : 'none';
+      });
+    });
+
+    // fecha menus ao clicar fora
+    document.addEventListener('click', function(e){
+      document.querySelectorAll('.dropdown-menu').forEach(function(menu){
+        if (!menu.classList.contains('show')) return;
+        // se o clique estiver fora do menu e fora do botão pai, fechar
+        var parent = menu.previousElementSibling || menu.parentElement.querySelector('.dropdown-toggle');
+        if (parent && (parent.contains(e.target) || menu.contains(e.target))) return;
+        menu.classList.remove('show');
+        menu.style.display = 'none';
+      });
+    });
+  })();
+</script>
 </html>

@@ -23,6 +23,25 @@
                     <a class="botao-dashboard" href="/concluidos"><i class="fas fa-check-circle"></i> Consertos concluídos</a>
                     <a class="botao-dashboard" href="/cancelados"><i class="fas fa-ban"></i> Consertos Cancelados</a>
                    
+                    <!-- ADICIONADO: dropdown de usuário (Sair) -->
+                    <div class="dropdown">
+                      <button
+                        class="btn botao-dashboard dropdown-toggle"
+                        type="button"
+                        id="dropdownUser"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-user"></i> <%= usuario ? usuario.nome : 'Usuário' %>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownUser" style="width: 100%">
+                        <li>
+                          <a class="dropdown-item dropdown-sair" href="/logout">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
                 </div>
                 <div class="pedidos-area">
                     <h2><i class="fas fa-exclamation-triangle"></i> Concluídos</h2>
@@ -50,4 +69,40 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function(){
+    // se o Bootstrap estiver disponível, inicializa os dropdowns oficialmente
+    if (window.bootstrap && bootstrap.Dropdown) {
+      document.querySelectorAll('.dropdown-toggle').forEach(function(el){
+        // evita re-instanciar se já houver sido instanciado pelo bundle
+        try { new bootstrap.Dropdown(el); } catch(e) { /* ignore */ }
+      });
+      return;
+    }
+
+    // Fallback simples quando Bootstrap não estiver presente:
+    document.querySelectorAll('.dropdown-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var menu = btn.nextElementSibling;
+        if (!menu) return;
+        var shown = menu.classList.toggle('show');
+        menu.style.display = shown ? 'block' : 'none';
+      });
+    });
+
+    // fecha menus ao clicar fora
+    document.addEventListener('click', function(e){
+      document.querySelectorAll('.dropdown-menu').forEach(function(menu){
+        if (!menu.classList.contains('show')) return;
+        // se o clique estiver fora do menu e fora do botão pai, fechar
+        var parent = menu.previousElementSibling || menu.parentElement.querySelector('.dropdown-toggle');
+        if (parent && (parent.contains(e.target) || menu.contains(e.target))) return;
+        menu.classList.remove('show');
+        menu.style.display = 'none';
+      });
+    });
+  })();
+</script>
 </html>

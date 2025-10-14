@@ -1,4 +1,4 @@
- .order-card {
+.order-card {
             cursor: pointer;
             transition: transform 0.2s;
             }
@@ -52,7 +52,15 @@
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .parte-botoes .dropdown {
+            margin-top: auto;
+            margin-bottom: 24px;
+            width: 100%;
+            max-width: 250px;
+            align-self: center;
         }
 
         .parte-concluidos {
@@ -157,8 +165,59 @@
             color: white;
         }
 
-        @media (max-width: 768px) {
-            .container-fluid {
-                flex-direction: column;
-            }
-        }
+        /* Se os cards de concluídos usarem .order-card ou .card-custom, alinhar imagem à direita */
+.order-card,
+.card-custom {
+    display: block; /* evitar reorganizar todo o conteúdo */
+    position: relative;
+    padding-right: 210px;
+}
+
+.order-card img,
+.card-custom img {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .order-card,
+    .card-custom {
+        padding-right: 20px;
+    }
+    .order-card img,
+    .card-custom img {
+        position: static;
+        transform: none;
+        display: block;
+        margin: 10px auto 0;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .parte-botoes {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        overflow-x: auto;
+    }
+
+    .parte-botoes .dropdown {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        align-self: center !important;
+        display: inline-flex;
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 250px;
+    }
+}

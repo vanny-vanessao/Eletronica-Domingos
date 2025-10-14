@@ -38,7 +38,68 @@
             </form>
         </div>
     </div>
+    <style>
+      .input-with-currency{position:relative;}
+      .input-with-currency .currency-prefix{position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#444; font-weight:600; pointer-events:none;}
+      .input-with-currency input{padding-left:48px;}
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function(){
+        const selectors = [
+          'input[name*="orc" i]',
+          'input[name*="valor" i]',
+          'input[placeholder*="orc" i]',
+          'input[placeholder*="valor" i]',
+          'input[type="number"]'
+        ];
 
+        const candidates = new Set();
+        selectors.forEach(sel => {
+          document.querySelectorAll(sel).forEach(el => candidates.add(el));
+        });
+
+        document.querySelectorAll('label').forEach(label => {
+          const txt = label.textContent.trim().toLowerCase();
+          if (txt.includes('orcamento') || txt.includes('valor')) {
+            const forId = label.getAttribute('for');
+            if (forId) {
+              const el = document.getElementById(forId);
+              if (el) candidates.add(el);
+            } else {
+              const input = label.closest('.form-group')?.querySelector('input,textarea,select');
+              if (input) candidates.add(input);
+            }
+          }
+        });
+
+        Array.from(candidates).forEach(function(inp){
+          if (!inp) return;
+          if (!(inp instanceof HTMLInputElement)) return;
+          const style = window.getComputedStyle(inp);
+          if (style.display === 'none' || style.visibility === 'hidden') return;
+          if (inp.closest('.input-with-currency')) return;
+
+          const t = inp.getAttribute('type') || 'text';
+          const name = (inp.getAttribute('name') || '').toLowerCase();
+          const placeholder = (inp.getAttribute('placeholder') || '').toLowerCase();
+
+          const looksLikeCurrency = t === 'number' || name.includes('orc') || name.includes('valor') || placeholder.includes('orc') || placeholder.includes('valor');
+
+          if (!looksLikeCurrency) return;
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'input-with-currency';
+          const span = document.createElement('span');
+          span.className = 'currency-prefix';
+          span.setAttribute('aria-hidden','true');
+          span.textContent = 'R$';
+          inp.parentNode.insertBefore(wrapper, inp);
+          wrapper.appendChild(span);
+          wrapper.appendChild(inp);
+          if (!inp.style.paddingLeft) inp.style.paddingLeft = '48px';
+        });
+      });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
